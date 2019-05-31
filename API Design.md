@@ -6,6 +6,127 @@ This document details the high-level API routes that will need to be built out f
 
 API calls that require authentication are done so due to the volume of data and the compute requirements to serve them at volume. This may change as request caching is implemented across the board at a later date.
 
+* [Guests](#guests)
+* [Hosts](#hosts)
+* [Locations](#locations)
+* [Panelists](#panelists)
+* [Scorekeepers](#scorekeepers)
+* [Shows](#shows)
+
+## Guests
+
+* /guests/`:id`
+
+  Retrieve guest ID, slug and name for the requested guest ID
+
+* /guests/`:id`/details
+
+  Retrieve guest ID, slug, name and list of appearances for the requested guest ID
+
+* /guests/slug/`:slug`
+
+  Retrieve guest ID, slug and name for the requested guest slug
+
+* /guests/slug/`:slug`/details
+
+  Retrieve guest ID, slug, name and list of appearances for the requested guest ID
+
+* /guests/all
+
+  Retrieve guest ID, slug and name for all available guests
+
+* /guests/all/details
+
+  **(Authenticated)** Retrieve guest ID, slug, name and list of appearances for all available guests
+
+## Hosts
+
+* /hosts/`:id`
+
+  Retrieve host ID, slug, name and gender for the requested host ID
+
+* /hosts/`:id`/details
+
+  Retrieve host ID, slug, name, gender and list of appearances for the requested host ID
+
+* /hosts/slug/`:slug`
+
+  Retrieve host ID, slug, name and gender for the requested host slug
+
+* /hosts/slug/`:slug`/details
+
+  Retrieve host ID, slug, name, gender and list of appearances for the requested host slug
+
+* /hosts/all
+
+  Retrieve host ID, slug, name and gender for all available hosts
+
+* /hosts/all/details
+
+  **(Authenticated)** Retrieve host ID, slug, name, gender and list of appearances for all available hosts
+
+## Locations
+
+* /locations/`:id`
+
+  **(Not Implemented)** Retrieve location ID, city, state and venue for the requested location ID
+
+* /location/all
+
+  **(Not Implemented)** Retrieve location ID, city, state and venue for all available locations
+
+## Panelists
+
+* /panelists/`:id`
+
+  Retrieve panelist ID, slug, name and gender for the requested panelist ID
+
+* /panelists/`:id`/details
+
+  Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist ID
+
+* /panelists/slug/`:slug`
+
+  Retrieve panelist ID, slug, name and gender for the requested panelist slug
+
+* /panelists/slug/`:slug`/details
+
+  Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist slug
+
+* /panelists/all
+
+  Retrieve panelist ID, slug, name and gender for all available panelists
+
+* /panelists/all/details
+
+  **(Authenticated)** Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
+
+## Scorekeepers
+
+* /scorekeepers/`:id`
+
+  Retrieve scorekeeper ID, slug, name and gender for the requested scorekeeper ID
+
+* /scorekeepers/`:id`/details
+
+  Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper ID
+
+* /scorekeepers/slug/`:slug`
+
+  Retrieve scorekeeper ID, slug, name and gender for the requested scorekeeper slug
+
+* /scorekeepers/slug/`:slug`/details
+
+  Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper slug
+
+* /scorekeepers/all
+
+  Retrieve scorekeeper ID, slug, name and gender for all available scorekeepers
+
+* /scorekeepers/all/details
+
+  **(Authenticated)** Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
+
 ## Shows
 
 * /shows/`:id`
@@ -54,57 +175,4 @@ API calls that require authentication are done so due to the volume of data and 
 
 * /shows/recent/details
 
-  Retrieve a detailed list of recent shows that fall within the past `X` days and upcoming `Y` days. The detailed information would include panelist, guest and bluff information.
-
-## Guests
-
- * /guests/all
-
-
- * /guests/`guest-slug`
-
-
- * /guests/id/`guest-id`
-
-
-## Hosts
-
- * /hosts/all
-
-
- * /hosts/`host-slug`
-
-
- * /hosts/id/`host-id`
-
-
-## Locations
-
- * /locations/all
-
-
- * /location/id/`location-id`
-
-## Panelists
-
- * /panelists/all
-
-
- * /panelists/`panelist-slug`
-
-
- * /panelists/id/`panelist-id`
-
-
-## Scorekeepers
-
- * /scorekeepers/all
-
-
- * /scorekeepers/`scorekeeper-slug`
-
-
- * /scorekeepers/id/`scorekeeper-id`
-
-
-
+  Retrieve a detailed list of recent shows that fall within the past `X` days and upcoming `Y` days. The detailed information would include panelist, guest and bluff information
