@@ -69,11 +69,19 @@ API calls that require authentication are done so due to the volume of data and 
 
 * /locations/`:id`
 
-  **(Not Implemented)** Retrieve location ID, city, state and venue for the requested location ID
+  Retrieve location ID, city, state and venue for the requested location ID
 
-* /location/all
+* /locations/`:id`/recordings
 
-  **(Not Implemented)** Retrieve location ID, city, state and venue for all available locations
+  Retrieve location ID, city, state, venue and list of shows recorded at that location
+
+* /locations/all
+
+  Retrieve location ID, city, state and venue for all available locations
+
+* /locations/all/recordings
+
+  **(Authenticated)** Retrieve location ID, city, state, venue and shows recorded for all available locations
 
 ## Panelists
 
@@ -85,6 +93,14 @@ API calls that require authentication are done so due to the volume of data and 
 
   Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist ID
 
+* /panelists/`:id`/scores/list
+
+  Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
+
+* /panelists/`:id`/scores/ordered-pair
+
+  Retrieve panelist scores as a list of ordered pairs (show date, score) for the requested panelist ID
+
 * /panelists/slug/`:slug`
 
   Retrieve panelist ID, slug, name and gender for the requested panelist slug
@@ -92,6 +108,14 @@ API calls that require authentication are done so due to the volume of data and 
 * /panelists/slug/`:slug`/details
 
   Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist slug
+
+* /panelists/slug/`:slug`/scores/list
+
+  Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
+
+* /panelists/slug/`:slug`/scores/ordered-pair
+
+  Retrieve panelist scores as a list of ordered pairs (show date, score) for the requested panelist slug
 
 * /panelists/all
 
