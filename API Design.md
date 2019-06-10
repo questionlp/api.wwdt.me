@@ -6,14 +6,64 @@ This document details the high-level API routes that will need to be built out f
 
 API calls that require authentication are done so due to the volume of data and the compute requirements to serve them at volume. This may change as request caching is implemented across the board at a later date.
 
-* [Guests](#guests)
-* [Hosts](#hosts)
-* [Locations](#locations)
-* [Panelists](#panelists)
-* [Scorekeepers](#scorekeepers)
-* [Shows](#shows)
+* [JSON Response Format](#json-response-format)
+  * [Success](#success)
+  * [Fail](#fail)
+  * [Error](#error)
+* [Endpoints](#endpoints)
+  * [Guests](#guests)
+  * [Hosts](#hosts)
+  * [Locations](#locations)
+  * [Panelists](#panelists)
+  * [Scorekeepers](#scorekeepers)
+  * [Shows](#shows)
 
-## Guests
+## JSON Response Format
+
+The JSON repsonse format used to return data, failure details and error messages is based on the [JSend](https://github.com/omniti-labs/jsend) specification for its simplicity.
+
+All responses will include a status key with either `success`, `fail` or `error` as its value. See the following sections for more information.
+
+### Success
+
+For successful responses, a `success` status will be returned and the response object will be returned as part of the `data` key.
+
+    {
+        status: "success",
+        data: {
+            response-object
+        }
+    }
+
+In addition to the JSON response being returned in the response body, a status code of `200 OK` will be returned in the HTTP header(s).
+
+### Fail
+
+For responses that fail due to issues with the user input or where a requested object cannot be located, a `fail` status will be returned with a reason included in the `data` key.
+
+    {
+        status: "fail",
+        data: {
+            fail-details
+        }
+    }
+
+In addition to the JSON response being returned in the response body, a status code of `404 Not Found` will be returned when a requested object cannot be located. Other fail conditions will return a `419 Failed Request`.
+
+### Error
+
+For responses that fail during the processing of the request, an `error` status will be returned and a description of the error will be returned within the `message` key.
+
+    {
+        status: "error",
+        message: error-message
+    }
+
+In addition to the JSON response being returned in the response body, a status code of `500 Internal Server Error` will be returned when an error occurs.
+
+## Endpoints
+
+### Guests
 
 * /guests/`:id`
 
@@ -39,7 +89,7 @@ API calls that require authentication are done so due to the volume of data and 
 
   **(Authenticated)** Retrieve guest ID, slug, name and list of appearances for all available guests
 
-## Hosts
+### Hosts
 
 * /hosts/`:id`
 
@@ -65,7 +115,7 @@ API calls that require authentication are done so due to the volume of data and 
 
   **(Authenticated)** Retrieve host ID, slug, name, gender and list of appearances for all available hosts
 
-## Locations
+### Locations
 
 * /locations/`:id`
 
@@ -83,7 +133,7 @@ API calls that require authentication are done so due to the volume of data and 
 
   **(Authenticated)** Retrieve location ID, city, state, venue and shows recorded for all available locations
 
-## Panelists
+### Panelists
 
 * /panelists/`:id`
 
@@ -125,7 +175,7 @@ API calls that require authentication are done so due to the volume of data and 
 
   **(Authenticated)** Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
 
-## Scorekeepers
+### Scorekeepers
 
 * /scorekeepers/`:id`
 
@@ -151,7 +201,7 @@ API calls that require authentication are done so due to the volume of data and 
 
   **(Authenticated)** Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
 
-## Shows
+### Shows
 
 * /shows/`:id`
 
