@@ -35,7 +35,7 @@ For successful responses, a `success` status will be returned and the response o
         }
     }
 
-In addition to the JSON response being returned in the response body, a status code of `200 OK` will be returned in the HTTP header(s).
+In addition to the JSON response being returned in the response body, a status code of `200` will be returned in the HTTP header(s).
 
 ### Fail
 
@@ -48,7 +48,7 @@ For responses that fail due to issues with the user input or where a requested o
         }
     }
 
-In addition to the JSON response being returned in the response body, a status code of `404 Not Found` will be returned when a requested object cannot be located. Other fail conditions will return a `419 Failed Request`.
+In addition to the JSON response being returned in the response body, a status code of `404` will be returned when a requested object cannot be located. Other fail conditions will return a `400`.
 
 ### Error
 
@@ -59,11 +59,15 @@ For responses that fail during the processing of the request, an `error` status 
         message: error-message
     }
 
-In addition to the JSON response being returned in the response body, a status code of `500 Internal Server Error` will be returned when an error occurs.
+In addition to the JSON response being returned in the response body, a status code of `500` will be returned when an error occurs.
 
 ## Endpoints
 
 ### Guests
+
+* /guests
+
+  Retrieve guest ID, slug and name for all available guests
 
 * /guests/`:id`
 
@@ -73,6 +77,10 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve guest ID, slug, name and list of appearances for the requested guest ID
 
+* /guests/details
+
+  **(Authenticated)** Retrieve guest ID, slug, name and list of appearances for all available guests
+
 * /guests/slug/`:slug`
 
   Retrieve guest ID, slug and name for the requested guest slug
@@ -81,15 +89,11 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve guest ID, slug, name and list of appearances for the requested guest ID
 
-* /guests/all
-
-  Retrieve guest ID, slug and name for all available guests
-
-* /guests/all/details
-
-  **(Authenticated)** Retrieve guest ID, slug, name and list of appearances for all available guests
-
 ### Hosts
+
+* /hosts
+
+  Retrieve host ID, slug, name and gender for all available hosts
 
 * /hosts/`:id`
 
@@ -99,6 +103,10 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve host ID, slug, name, gender and list of appearances for the requested host ID
 
+* /hosts/details
+
+  **(Authenticated)** Retrieve host ID, slug, name, gender and list of appearances for all available hosts
+
 * /hosts/slug/`:slug`
 
   Retrieve host ID, slug, name and gender for the requested host slug
@@ -107,15 +115,11 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve host ID, slug, name, gender and list of appearances for the requested host slug
 
-* /hosts/all
-
-  Retrieve host ID, slug, name and gender for all available hosts
-
-* /hosts/all/details
-
-  **(Authenticated)** Retrieve host ID, slug, name, gender and list of appearances for all available hosts
-
 ### Locations
+
+* /locations
+
+  Retrieve location ID, city, state and venue for all available locations
 
 * /locations/`:id`
 
@@ -125,15 +129,15 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve location ID, city, state, venue and list of shows recorded at that location
 
-* /locations/all
-
-  Retrieve location ID, city, state and venue for all available locations
-
-* /locations/all/recordings
+* /locations/recordings
 
   **(Authenticated)** Retrieve location ID, city, state, venue and shows recorded for all available locations
 
 ### Panelists
+
+* /panelists
+
+  Retrieve panelist ID, slug, name and gender for all available panelists
 
 * /panelists/`:id`
 
@@ -146,6 +150,10 @@ In addition to the JSON response being returned in the response body, a status c
 * /panelists/`:id`/scores/list
 
   Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
+
+* /panelists/details
+
+  **(Authenticated)** Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
 
 * /panelists/`:id`/scores/ordered-pair
 
@@ -167,15 +175,11 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve panelist scores as a list of ordered pairs (show date, score) for the requested panelist slug
 
-* /panelists/all
-
-  Retrieve panelist ID, slug, name and gender for all available panelists
-
-* /panelists/all/details
-
-  **(Authenticated)** Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
-
 ### Scorekeepers
+
+* /scorekeepers
+
+  Retrieve scorekeeper ID, slug, name and gender for all available scorekeepers
 
 * /scorekeepers/`:id`
 
@@ -185,6 +189,10 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper ID
 
+* /scorekeepers/all/details
+
+  **(Authenticated)** Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
+
 * /scorekeepers/slug/`:slug`
 
   Retrieve scorekeeper ID, slug, name and gender for the requested scorekeeper slug
@@ -193,15 +201,11 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper slug
 
-* /scorekeepers/all
-
-  Retrieve scorekeeper ID, slug, name and gender for all available scorekeepers
-
-* /scorekeepers/all/details
-
-  **(Authenticated)** Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
-
 ### Shows
+
+* /shows
+
+  Retrieve a list of all shows along with their corresponding show IDs, show dates and repeat show/Best Of information
 
 * /shows/`:id`
 
@@ -210,14 +214,6 @@ In addition to the JSON response being returned in the response body, a status c
 * /shows/`:id`/details
 
   Retrieve detailed show information, including: location, host, scorekeeper, panelists and guests for the requested show
-
-* /shows/all
-
-  Retrieve a list of all shows along with their corresponding show IDs, show dates and repeat show/Best Of information
-
-* /shows/all/details
-
-  **(Authenticated)** Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests
 
 * /shows/date/`:year`
 
@@ -242,6 +238,10 @@ In addition to the JSON response being returned in the response body, a status c
 * /shows/date/`:year`/`:month`/`:day`/details
 
   Retrieve show information for the show from `year`/`month`/`day` along with their full details: location, host, scorekeeper, panelists and guests
+
+* /shows/details
+
+  **(Authenticated)** Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests
 
 * /shows/recent
 
