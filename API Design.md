@@ -147,7 +147,7 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist ID
 
-* /panelists/`:id`/scores/list
+* /panelists/`:id`/scores
 
   Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
 
@@ -167,7 +167,7 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist slug
 
-* /panelists/slug/`:slug`/scores/list
+* /panelists/slug/`:slug`/scores
 
   Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
 
