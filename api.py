@@ -71,7 +71,135 @@ def error_dict(error_message: str):
 #endregion
 
 #region Host API Endpoint
+@app.route("/hosts/", methods=["GET"])
+def get_hosts():
+    """Retrieve a list of hosts and their corresponding information"""
+    try:
+        hosts = host.retrieve_all(database_connection)
+        if not hosts:
+            response = fail_dict("host", "No hosts found")
+            return jsonify(response), 404
 
+        return jsonify(success_dict(hosts)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve hosts from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "hosts from database")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/hosts/<int:host_id>/", methods=["GET"])
+def get_host_by_id(host_id: int):
+    """Retrieve a host based on their ID"""
+    try:
+        info = host.retrieve_by_id(host_id, database_connection)
+        if not info:
+            message = "Host ID {} not found".format(host_id)
+            response = fail_dict("host", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve host information from "
+                              "database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "host information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/hosts/<int:host_id>/details/", methods=["GET"])
+def get_host_details_by_id(host_id: int):
+    """Retrieve a host and their appearance data based on their ID"""
+    try:
+        details = host.retrieve_details_by_id(host_id,
+                                              database_connection)
+        if not details:
+            message = "Host ID {} not found".format(host_id)
+            response = fail_dict("host", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve host information from "
+                              "database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "host information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/hosts/details/", methods=["GET"])
+def get_host_details():
+    """Retrieve a list of hosts and their corresponding appearances"""
+    try:
+        details = host.retrieve_all_details(database_connection)
+        if not details:
+            response = fail_dict("host", "No hosts found")
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve hosts from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "host information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/hosts/slug/<string:host_slug>/", methods=["GET"])
+def get_host_by_slug(host_slug: str):
+    """Retrieve a host based on their slug"""
+    try:
+        info = host.retrieve_by_slug(host_slug, database_connection)
+        if not info:
+            message = "Host slug '{}' not found".format(host_slug)
+            response = fail_dict("host", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve host information from "
+                              "database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "host information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/hosts/slug/<string:host_slug>/details/", methods=["GET"])
+def get_host_details_by_slug(host_slug: str):
+    """Retrieve a host and their appearance data based on their ID"""
+    try:
+        details = host.retrieve_details_by_slug(host_slug,
+                                                database_connection)
+        if not details:
+            message = "Host slug '{}' not found".format(host_slug)
+            response = fail_dict("host", message)
+            return jsonify(response), 404
+
+        return jsonify(details), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve host information from "
+                              "database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "host information")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 #endregion
 
@@ -81,7 +209,7 @@ def error_dict(error_message: str):
 #endregion
 
 #region Panelist API Endpoints
-@app.route("/panelists", methods=["GET"])
+@app.route("/panelists/", methods=["GET"])
 def get_panelists():
     """Retrieve a list of panelists and their corresponding
     information"""
@@ -102,7 +230,7 @@ def get_panelists():
     except:
         abort(500)
 
-@app.route("/panelists/<int:panelist_id>", methods=["GET"])
+@app.route("/panelists/<int:panelist_id>/", methods=["GET"])
 def get_panelist_by_id(panelist_id: int):
     """Retrieve a panelist based on their ID"""
     try:
@@ -124,7 +252,7 @@ def get_panelist_by_id(panelist_id: int):
     except:
         abort(500)
 
-@app.route("/panelists/<int:panelist_id>/details", methods=["GET"])
+@app.route("/panelists/<int:panelist_id>/details/", methods=["GET"])
 def get_panelist_details_by_id(panelist_id: int):
     """Retrieve a panelist with their statistics and appearances based
     on their ID"""
@@ -147,7 +275,7 @@ def get_panelist_details_by_id(panelist_id: int):
     except:
         abort(500)
 
-@app.route("/panelists/<int:panelist_id>/scores", methods=["GET"])
+@app.route("/panelists/<int:panelist_id>/scores/", methods=["GET"])
 def get_panelist_scores_by_id(panelist_id: int):
     """Retrieve a list of scores for the requested panelist ID"""
     try:
@@ -170,7 +298,7 @@ def get_panelist_scores_by_id(panelist_id: int):
     except:
         abort(500)
 
-@app.route("/panelists/<int:panelist_id>/scores/ordered-pair", methods=["GET"])
+@app.route("/panelists/<int:panelist_id>/scores/ordered-pair/", methods=["GET"])
 def get_panelist_scores_ordered_pair_by_id(panelist_id: int):
     """Retrieve a list of scores, as an ordered pair, for the requested
     panelist ID"""
@@ -194,7 +322,7 @@ def get_panelist_scores_ordered_pair_by_id(panelist_id: int):
     except:
         abort(500)
 
-@app.route("/panelists/details", methods=["GET"])
+@app.route("/panelists/details/", methods=["GET"])
 def get_panelists_details():
     """Retrieve a list of panelists with their corresponding statistics
     and appearances"""
@@ -215,11 +343,10 @@ def get_panelists_details():
     except:
         abort(500)
 
-@app.route("/panelists/slug/<string:panelist_slug>", methods=["GET"])
+@app.route("/panelists/slug/<string:panelist_slug>/", methods=["GET"])
 def get_panelist_by_slug(panelist_slug: str):
     """Retrieve a panelist based on their slug"""
     try:
-        print(panelist_slug)
         info = panelist.retrieve_by_slug(panelist_slug, database_connection)
         if not info:
             message = "Panelist slug '{}' not found".format(panelist_slug)
@@ -238,7 +365,7 @@ def get_panelist_by_slug(panelist_slug: str):
     except:
         abort(500)
 
-@app.route("/panelists/slug/<string:panelist_slug>/details", methods=["GET"])
+@app.route("/panelists/slug/<string:panelist_slug>/details/", methods=["GET"])
 def get_panelist_details_by_slug(panelist_slug: str):
     """Retrieve a panelist with their statistics and appearances based
     on their slug"""
@@ -261,7 +388,7 @@ def get_panelist_details_by_slug(panelist_slug: str):
     except:
         abort(500)
 
-@app.route("/panelists/slug/<string:panelist_slug>/scores", methods=["GET"])
+@app.route("/panelists/slug/<string:panelist_slug>/scores/", methods=["GET"])
 def get_panelist_scores_by_slug(panelist_slug: str):
     """Retrieve a list of scores for the requested panelist slug"""
     try:
@@ -284,7 +411,7 @@ def get_panelist_scores_by_slug(panelist_slug: str):
     except:
         abort(500)
 
-@app.route("/panelists/slug/<string:panelist_slug>/scores/ordered-pair", methods=["GET"])
+@app.route("/panelists/slug/<string:panelist_slug>/scores/ordered-pair/", methods=["GET"])
 def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str):
     """Retrieve a list of scores, as an ordered pair, for the requested
     panelist slug"""
@@ -311,7 +438,25 @@ def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str):
 #endregion
 
 #region Scorekeeper API Endpoints
+@app.route("/scorekeepers/", methods=["GET"])
+def get_scorekeepers():
+    return
 
+@app.route("/scorekeepers/<int:scorekeeper_id>/", methods=["GET"])
+def get_scorekeeper_by_id(scorekeeper_id: int):
+    return
+
+@app.route("/scorekeepers/<int:scorekeeper_id>/details/", methods=["GET"])
+def get_scorekeeper_details_by_id(scorekeeper_id: int):
+    return
+
+@app.route("/scorekeepers/slug/<string:scorekeeper_slug>/", methods=["GET"])
+def get_scorekeepers_by_slug(scorekeeper_slug: str):
+    return
+
+@app.route("/scorekeepers/slug/<string:scorekeeper_slug>/details/", methods=["GET"])
+def get_scorekeeper_details_by_slug(scorekeeper_slug: str):
+    return
 
 #endregion
 
@@ -324,6 +469,9 @@ def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str):
 if __name__ == '__main__':
     config_dict = load_config()
     database_connection = mysql.connector.connect(**config_dict["database"])
+
+    # Set Flask app settings
+    app.url_map.strict_slashes = False
     app.config["JSON_SORT_KEYS"] = False
     app.run(debug=False)
 
