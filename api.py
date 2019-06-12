@@ -65,8 +65,43 @@ def error_dict(error_message: str):
 
 #endregion
 
-#region Guest API Endpoints
+#region Default Error Handlers
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify(fail_dict("resource", "Resource not found")), 404
 
+#endregion
+
+#region Guest API Endpoints
+@app.route("/guests/", methods=["GET"])
+def get_guests():
+    """Retrieve a list of guests and their corresponding information"""
+    return
+
+@app.route("/guests/<int:guest_id>/", methods=["GET"])
+def get_guest_by_id(guest_id: int):
+    """Retrieve a guest based on their ID"""
+    return
+
+@app.route("/guests/<int:guest_id>/details/", methods=["GET"])
+def get_guest_details_by_id(guest_id: int):
+    """Retrieve a guest with their appearance data based on their ID"""
+    return
+
+@app.route("/guests/details/", methods=["GET"])
+def get_guest_details():
+    """Retrieve all guests and their corresponding appearances"""
+    return
+
+@app.route("/guests/<string:guest_slug>/", methods=["GET"])
+def get_guest_by_slug(guest_slug: str):
+    """Retrieve a guest based on their slug"""
+    return
+
+@app.route("/guests/<string:guest_slug>/details/", methods=["GET"])
+def get_guest_details_by_slug(guest_slug: str):
+    """Retrieve a guest with their appearances based on their slug"""
+    return
 
 #endregion
 
