@@ -440,23 +440,138 @@ def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str):
 #region Scorekeeper API Endpoints
 @app.route("/scorekeepers/", methods=["GET"])
 def get_scorekeepers():
-    return
+    """Retrieve a list of scoreekeepers and their corresponding
+    information"""
+    try:
+        scorekeepers = scorekeeper.retrieve_all(database_connection)
+        if not scorekeepers:
+            response = fail_dict("scorekeeper", "No scorekeepers found")
+            return jsonify(response), 404
+
+        return jsonify(success_dict(scorekeepers)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve scorekeepers from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "scorekeepers from database")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 @app.route("/scorekeepers/<int:scorekeeper_id>/", methods=["GET"])
 def get_scorekeeper_by_id(scorekeeper_id: int):
-    return
+    """Retrieve a scorekeeper based on their ID"""
+    try:
+        info = scorekeeper.retrieve_by_id(scorekeeper_id, database_connection)
+        if not info:
+            message = "Scorekeeper ID {} not found".format(scorekeeper_id)
+            response = fail_dict("scorekeeper", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve scorekeeper information "
+                              "from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "scorekeeper information")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 @app.route("/scorekeepers/<int:scorekeeper_id>/details/", methods=["GET"])
 def get_scorekeeper_details_by_id(scorekeeper_id: int):
-    return
+    """Retrieve a scorekeeper and their appearance data based on their
+    ID"""
+    try:
+        details = scorekeeper.retrieve_details_by_id(scorekeeper_id,
+                                                     database_connection)
+        if not details:
+            message = "Scorekeeper ID {} not found".format(scorekeeper_id)
+            response = fail_dict("scorekeeper", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve scorekeeper information "
+                              "from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "scorekeeper information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/scorekeepers/details/", methods=["GET"])
+def get_scorekeeper_details():
+    """Retrieve a list of scorekeeper and their corresponding
+    appearances"""
+    try:
+        details = scorekeeper.retrieve_all_details(database_connection)
+        if not details:
+            response = fail_dict("scorekeeper", "No scorekeepers found")
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve scorekeepers from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "scorekeepers from database")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 @app.route("/scorekeepers/slug/<string:scorekeeper_slug>/", methods=["GET"])
 def get_scorekeepers_by_slug(scorekeeper_slug: str):
-    return
+    """Retrieve a scorekeeper based on their slug"""
+    try:
+        info = scorekeeper.retrieve_by_slug(scorekeeper_slug,
+                                            database_connection)
+        if not info:
+            message = "Scorekeeper slug '{}' not found".format(scorekeeper_slug)
+            response = fail_dict("scorekeeper", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve scorekeeper information "
+                              "from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "scorekeeper information")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 @app.route("/scorekeepers/slug/<string:scorekeeper_slug>/details/", methods=["GET"])
 def get_scorekeeper_details_by_slug(scorekeeper_slug: str):
-    return
+    """Retrieve a scorekeeper and their appearance data based on their
+    slug"""
+    try:
+        details = scorekeeper.retrieve_details_by_slug(scorekeeper_slug,
+                                                       database_connection)
+        if not details:
+            message = "Scorekeeper slug '{}' not found".format(scorekeeper_slug)
+            response = fail_dict("scorekeeper", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve scorekeeper information "
+                              "from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "scorekeeper information")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 #endregion
 
