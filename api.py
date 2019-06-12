@@ -13,7 +13,6 @@ from flask import Flask, jsonify, abort, make_response, request
 from wwdtm import guest, host, location, panelist, scorekeeper, show
 
 app = Flask(__name__)
-database_connection = None
 
 #region Bootstrap Functions
 def load_config():
@@ -66,10 +65,26 @@ def error_dict(error_message: str):
 
 #endregion
 
-#region API: Panelists
-@app.route('/panelists', methods=["GET"])
+#region Guest API Endpoints
+
+
+#endregion
+
+#region Host API Endpoint
+
+
+#endregion
+
+#region Location API Endpoints
+
+
+#endregion
+
+#region Panelist API Endpoints
+@app.route("/panelists", methods=["GET"])
 def get_panelists():
-    """Return JSON payload based on result of panelist.retrieve_all()"""
+    """Retrieve a list of panelists and their corresponding
+    information"""
     try:
         panelists = panelist.retrieve_all(database_connection)
         if not panelists:
@@ -81,59 +96,235 @@ def get_panelists():
         repsonse = error_dict("Unable to retrieve panelists from database")
         return jsonify(repsonse), 500
     except DatabaseError:
-        repsonse = error_dict("Unable to retrieve panelists from database")
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "panelists from database")
         return jsonify(response), 500
     except:
         abort(500)
 
-@app.route('/panelists/<int:panelist_id>', methods=["GET"])
+@app.route("/panelists/<int:panelist_id>", methods=["GET"])
 def get_panelist_by_id(panelist_id: int):
-    """Return JSON payload based on result of panelist.retrieve_by_id()"""
+    """Retrieve a panelist based on their ID"""
     try:
-        panelist_info = panelist.retrieve_by_id(panelist_id,
-                                                database_connection)
-        if not panelist_info:
+        info = panelist.retrieve_by_id(panelist_id, database_connection)
+        if not info:
             message = "Panelist ID {} not found".format(panelist_id)
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(panelist_info)), 200
+        return jsonify(success_dict(info)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist from database")
+        response = error_dict("Unable to retrieve panelist information "
+                              "from database")
         return jsonify(response), 500
     except DatabaseError:
-        response = error_dict("Unexpected error when retrieving data")
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist information")
         return jsonify(response), 500
     except:
         abort(500)
 
-@app.route('/panelists/<int:panelist_id>/details', methods=["GET"])
+@app.route("/panelists/<int:panelist_id>/details", methods=["GET"])
 def get_panelist_details_by_id(panelist_id: int):
-    """Return JSON payload based on result of
-    panelist.retrieve_details_by_id()"""
+    """Retrieve a panelist with their statistics and appearances based
+    on their ID"""
     try:
-        panelist_info = panelist.retrieve_details_by_id(panelist_id,
-                                                        database_connection)
-        if not panelist_info:
+        details = panelist.retrieve_details_by_id(panelist_id,
+                                                  database_connection)
+        if not details:
             message = "Panelist ID {} not found".format(panelist_id)
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(panelist_info)), 200
+        return jsonify(success_dict(details)), 200
     except ProgrammingError:
         response = error_dict("Unable to retrieve panelist from database")
         return jsonify(response), 500
     except DatabaseError:
-        response = error_dict("Unexpected error when retrieving data")
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist details")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/<int:panelist_id>/scores", methods=["GET"])
+def get_panelist_scores_by_id(panelist_id: int):
+    """Retrieve a list of scores for the requested panelist ID"""
+    try:
+        scores = panelist.retrieve_scores_list_by_id(panelist_id,
+                                                     database_connection)
+        if not scores:
+            message = "Panelist ID {} not found".format(panelist_id)
+            response = fail_dict("panelist", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(scores)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve panelist scores from "
+                              "database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist scores")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/<int:panelist_id>/scores/ordered-pair", methods=["GET"])
+def get_panelist_scores_ordered_pair_by_id(panelist_id: int):
+    """Retrieve a list of scores, as an ordered pair, for the requested
+    panelist ID"""
+    try:
+        scores = panelist.retrieve_scores_ordered_pair_by_id(panelist_id,
+                                                             database_connection)
+        if not scores:
+            message = "Panelist ID {} not found".format(panelist_id)
+            response = fail_dict("panelist", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(scores)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve panelist scores from "
+                              "database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist scores")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/details", methods=["GET"])
+def get_panelists_details():
+    """Retrieve a list of panelists with their corresponding statistics
+    and appearances"""
+    try:
+        details = panelist.retrieve_all_details(database_connection)
+        if not details:
+            response = fail_dict("panelist", "No panelists found")
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve panelists from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "panelists from database")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/slug/<string:panelist_slug>", methods=["GET"])
+def get_panelist_by_slug(panelist_slug: str):
+    """Retrieve a panelist based on their slug"""
+    try:
+        print(panelist_slug)
+        info = panelist.retrieve_by_slug(panelist_slug, database_connection)
+        if not info:
+            message = "Panelist slug '{}' not found".format(panelist_slug)
+            response = fail_dict("panelist", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve panelist information "
+                              "from database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/slug/<string:panelist_slug>/details", methods=["GET"])
+def get_panelist_details_by_slug(panelist_slug: str):
+    """Retrieve a panelist with their statistics and appearances based
+    on their slug"""
+    try:
+        details = panelist.retrieve_details_by_slug(panelist_slug,
+                                                    database_connection)
+        if not details:
+            message = "Panelist slug '{}' not found".format(panelist_slug)
+            response = fail_dict("panelist", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve panelist from database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist details")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/slug/<string:panelist_slug>/scores", methods=["GET"])
+def get_panelist_scores_by_slug(panelist_slug: str):
+    """Retrieve a list of scores for the requested panelist slug"""
+    try:
+        scores = panelist.retrieve_scores_list_by_slug(panelist_slug,
+                                                       database_connection)
+        if not scores:
+            message = "Panelist slug '{}' not found".format(panelist_slug)
+            response = fail_dict("panelist", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(scores)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve panelist scores from "
+                              "database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist scores")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/panelists/slug/<string:panelist_slug>/scores/ordered-pair", methods=["GET"])
+def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str):
+    """Retrieve a list of scores, as an ordered pair, for the requested
+    panelist slug"""
+    try:
+        scores = panelist.retrieve_scores_ordered_pair_by_slug(panelist_slug,
+                                                               database_connection)
+        if not scores:
+            message = "Panelist slug '{}' not found".format(panelist_slug)
+            response = fail_dict("panelist", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(scores)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve panelist scores from "
+                              "database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "panelist scores")
         return jsonify(response), 500
     except:
         abort(500)
 
 #endregion
 
-# Only run if executed as a script and not imported
+#region Scorekeeper API Endpoints
+
+
+#endregion
+
+#region Show API Endpoints
+
+
+#endregion
+
+#region Application Initialization
 if __name__ == '__main__':
     config_dict = load_config()
     database_connection = mysql.connector.connect(**config_dict["database"])
-
+    app.config["JSON_SORT_KEYS"] = False
     app.run(debug=False)
+
+#endregion
