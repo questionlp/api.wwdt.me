@@ -204,7 +204,90 @@ def get_host_details_by_slug(host_slug: str):
 #endregion
 
 #region Location API Endpoints
+@app.route("/locations/", methods=["GET"])
+def get_locations():
+    """Retrieve a list of locations"""
+    try:
+        locations = location.retrieve_all(database_connection)
+        if not locations:
+            response = fail_dict("location", "No locations found")
+            return jsonify(response), 404
 
+        return jsonify(success_dict(locations)), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve locations from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "locations from database")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/locations/<int:location_id>/", methods=["GET"])
+def get_location_by_id(location_id: int):
+    """Retrieve a location and its information based on its ID"""
+    try:
+        info = location.retrieve_by_id(location_id, database_connection)
+        if not info:
+            message = "Location ID {} not found".format(location_id)
+            response = fail_dict("location", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve location information "
+                              "from database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "location information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/locations/<int:location_id>/recordings/", methods=["GET"])
+def get_location_recordings_by_id(location_id: int):
+    """Retrieve show recordings for a location based on its ID"""
+    try:
+        recordings = location.retrieve_recordings_by_id(location_id,
+                                                        database_connection)
+        if not recordings:
+            message = "Location ID {} not found".format(location_id)
+            response = fail_dict("location", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(recordings)), 200
+    except ProgrammingError:
+        response = error_dict("Unable to retrieve location information "
+                              "from database")
+        return jsonify(response), 500
+    except DatabaseError:
+        response = error_dict("Database error occurred while retrieving "
+                              "location information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+@app.route("/locations/recordings/", methods=["GET"])
+def get_location_recordings():
+    """Retrieve show recordings for all locations"""
+    try:
+        recordings = location.retrieve_all_recordings(database_connection)
+        if not recordings:
+            response = fail_dict("location", "No location recordings found")
+            return jsonify(response), 404
+
+        return jsonify(recordings), 200
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve locations from database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "locations from database")
+        return jsonify(response), 500
+    except:
+        abort(500)
 
 #endregion
 
