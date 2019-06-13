@@ -1,0 +1,13 @@
+[Unit]
+Description=uWSGI instance to serve api.wwdt.me
+After=network.target
+
+[Service]
+User=                   ; Set User to Run Under
+Group=                  ; Set Group to Run Under
+WorkingDirectory=       ; Set Application Working WorkingDirectory
+Environment="PATH="     ; Add venv/bin to PATH
+ExecStart=              ; Set to venv/bin/uwsgi --ini uwsgi.ini
+
+[Install]
+WantedBy=multi-user.target

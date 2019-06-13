@@ -4,6 +4,9 @@ venv/
 # Ignore the default configuration file
 config.json
 
+# Ignore uWSGI configuration files
+uwsgi.ini
+
 # Created by https://www.gitignore.io/api/python
 # Edit at https://www.gitignore.io/?templates=python
 
