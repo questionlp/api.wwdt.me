@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018-2019 Linh Pham
 # api.wwdt.me is relased under the terms of the Apache License 2.0
-"""Flash application startup file"""
+"""Flask application startup file"""
 
 import json
 import os
@@ -15,15 +15,11 @@ from resources.dicts import error_dict, fail_dict, success_dict
 
 app = Flask(__name__)
 
-# Set Flask app settings
-app.url_map.strict_slashes = False
-app.config["JSON_SORT_KEYS"] = False
-
 #region Bootstrap Functions
 def load_config():
     """Bootstrap the API by loading in configuration and initializing
     Flask app"""
-    app_environment = os.getenv("FLASK_ENV", "local").strip().lower()
+    app_environment = os.getenv("API_ENV", "local").strip().lower()
 
     try:
         with open('config.json', 'r') as config_file:
@@ -340,9 +336,14 @@ def get_recent_shows_details():
 #endregion
 
 #region Application Initialization
-if __name__ == '__main__':
-    config_dict = load_config()
-    database_connection = mysql.connector.connect(**config_dict["database"])
-    app.run(debug=False)
+
+app.url_map.strict_slashes = False
+app.config["JSON_SORT_KEYS"] = False
+app.config["JSONIFY_PRETTYPRINT_REGULAR"] = False
+config_dict = load_config()
+database_connection = mysql.connector.connect(**config_dict["database"])
+
+if __name__ == '__main__':    
+    app.run(debug=False, host="0.0.0.0", port="9248")
 
 #endregion
