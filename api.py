@@ -342,6 +342,7 @@ app.config["JSON_SORT_KEYS"] = False
 app.config["JSONIFY_PRETTYPRINT_REGULAR"] = False
 config_dict = load_config()
 database_connection = mysql.connector.connect(**config_dict["database"])
+database_connection.autocommit = True
 
 if __name__ == '__main__':    
     app.run(debug=False, host="0.0.0.0", port="9248")
