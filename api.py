@@ -323,6 +323,22 @@ def get_show_details_by_date(show_year: int, show_month: int, show_day: int):
                                           show_day,
                                           database_connection)
 
+@app.route("/v1.0/shows/date/iso/<string:show_date>/",
+           methods=["GET"])
+def get_show_by_date_string(show_date: str):
+    """Retrieve a list of shows and corresponding information for the
+    requested year, month and day"""
+    return shows.get_show_by_date_string(show_date,
+                                         database_connection)
+
+@app.route("/v1.0/shows/date/iso/<string:show_date>/details/",
+           methods=["GET"])
+def get_show_details_by_date_string(show_date: str):
+    """Retrieve a list of shows and detailed information for the
+    requested year, month and day"""
+    return shows.get_show_details_by_date_string(show_date,
+                                                 database_connection)
+
 @app.route("/v1.0/shows/details/", methods=["GET"])
 def get_show_details():
     """Retrieve a list of all shows and corresponding detailed

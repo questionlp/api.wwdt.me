@@ -199,8 +199,8 @@ def get_show_by_date(show_year: int,
                      show_month: int,
                      show_day: int,
                      database_connection: mysql.connector.connect):
-    """Retrieve a list of shows and corresponding information for the
-    requested year, month and day"""
+    """Retrieve a show and corresponding information based on the
+    show's year, month and day"""
     try:
         database_connection.reconnect()
         info = show.retrieve_by_date(show_year,
@@ -219,6 +219,35 @@ def get_show_by_date(show_year: int,
         message = "Invalid date {}-{}-{}".format(show_year,
                                                  show_month,
                                                  show_day)
+        response = fail_dict("show", message)
+        return jsonify(response), 400
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve show information from "
+                              "database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "show information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+def get_show_by_date_string(show_date: str,
+                            database_connection: mysql.connector.connect):
+    """Retrieve a show and corresponding information based on the
+    show's year, month and day in ISO format (YYYY-MM-DD)"""
+    try:
+        database_connection.reconnect()
+        info = show.retrieve_by_date_string(show_date,
+                                            database_connection)
+        if not info:
+            message = "Show date {} not found".format(show_date)
+            response = fail_dict("show", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(info)), 200
+    except ValueError:
+        message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
@@ -256,6 +285,35 @@ def get_show_details_by_date(show_year: int,
         message = "Invalid date {}-{}-{}".format(show_year,
                                                  show_month,
                                                  show_day)
+        response = fail_dict("show", message)
+        return jsonify(response), 400
+    except ProgrammingError:
+        repsonse = error_dict("Unable to retrieve show information from "
+                              "database")
+        return jsonify(repsonse), 500
+    except DatabaseError:
+        repsonse = error_dict("Database error occurred while retrieving "
+                              "show information")
+        return jsonify(response), 500
+    except:
+        abort(500)
+
+def get_show_details_by_date_string(show_date: str,
+                                    database_connection: mysql.connector.connect):
+    """Retrieve a show and detailed information based on the
+    show's year, month and day in ISO format (YYYY-MM-DD)"""
+    try:
+        database_connection.reconnect()
+        details = show.retrieve_details_by_date_string(show_date,
+                                                       database_connection)
+        if not details:
+            message = "Show date {} not found".format(show_date)
+            response = fail_dict("show", message)
+            return jsonify(response), 404
+
+        return jsonify(success_dict(details)), 200
+    except ValueError:
+        message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
