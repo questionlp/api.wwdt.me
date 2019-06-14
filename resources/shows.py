@@ -14,6 +14,7 @@ from wwdtm import show
 def get_shows(database_connection: mysql.connector.connect):
     """Return a list of shows and the corresponding information"""
     try:
+        database_connection.reconnect()
         shows = show.retrieve_all(database_connection)
         if not shows:
             response = fail_dict("show", "No shows found")
@@ -34,6 +35,7 @@ def get_show_by_id(show_id: int, database_connection: mysql.connector.connect):
     """Retrieve a show and corresponding information based on the
     show ID"""
     try:
+        database_connection.reconnect()
         info = show.retrieve_by_id(show_id, database_connection)
         if not info:
             message = "Show ID {} not found".format(show_id)
@@ -56,6 +58,7 @@ def get_show_details_by_id(show_id: int,
                            database_connection: mysql.connector.connect):
     """Retrieve a show and detailed information based on the show ID"""
     try:
+        database_connection.reconnect()
         details = show.retrieve_details_by_id(show_id, database_connection)
         if not details:
             message = "Show ID {} not found".format(show_id)
@@ -79,6 +82,7 @@ def get_show_by_year(show_year: int,
     """Retrieve a list of shows and corresponding information for a
     requested year"""
     try:
+        database_connection.reconnect()
         info = show.retrieve_by_year(show_year, database_connection)
         if not info:
             message = "Shows for year {} not found".format(show_year)
@@ -106,6 +110,7 @@ def get_show_details_by_year(show_year: int,
     """Retrieve a list of shows and detailed information for the
     requested year"""
     try:
+        database_connection.reconnect()
         details = show.retrieve_details_by_year(show_year, database_connection)
         if not details:
             message = "Shows for year {} not found".format(show_year)
@@ -134,6 +139,7 @@ def get_show_by_year_month(show_year: int,
     """Retrieve a list of shows and corresponding information for the
     requested year and month"""
     try:
+        database_connection.reconnect()
         info = show.retrieve_by_year_month(show_year,
                                            show_month,
                                            database_connection)
@@ -164,6 +170,7 @@ def get_show_details_by_year_month(show_year: int,
     """Retrieve a list of shows and detailed information for the
     requested year and month"""
     try:
+        database_connection.reconnect()
         details = show.retrieve_details_by_year_month(show_year,
                                                       show_month,
                                                       database_connection)
@@ -195,6 +202,7 @@ def get_show_by_date(show_year: int,
     """Retrieve a list of shows and corresponding information for the
     requested year, month and day"""
     try:
+        database_connection.reconnect()
         info = show.retrieve_by_date(show_year,
                                      show_month,
                                      show_day,
@@ -231,6 +239,7 @@ def get_show_details_by_date(show_year: int,
     """Retrieve a list of shows and detailed information for the
     requested year, month and day"""
     try:
+        database_connection.reconnect()
         details = show.retrieve_details_by_date(show_year,
                                                 show_month,
                                                 show_day,
@@ -264,6 +273,7 @@ def get_show_details(database_connection: mysql.connector.connect):
     """Retrieve a list of all shows and corresponding detailed
     information"""
     try:
+        database_connection.reconnect()
         shows = show.retrieve_all_details(database_connection)
         if not shows:
             response = fail_dict("show", "No shows found")
@@ -283,6 +293,7 @@ def get_show_details(database_connection: mysql.connector.connect):
 def get_recent_shows(database_connection: mysql.connector.connect):
     """Retrieve a list of recent shows and corresponding information"""
     try:
+        database_connection.reconnect()
         info = show.retrieve_recent(database_connection)
         if not info:
             response = fail_dict("show", "No recent shows found")
@@ -303,6 +314,7 @@ def get_recent_shows_details(database_connection: mysql.connector.connect):
     """Retrieve a list of recent shows and corresponding detailed
     information"""
     try:
+        database_connection.reconnect()
         details = show.retrieve_recent_details(database_connection)
         if not details:
             response = fail_dict("show", "No recent shows found")

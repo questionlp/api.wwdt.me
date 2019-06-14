@@ -15,6 +15,7 @@ def get_panelists(database_connection: mysql.connector.connect):
     """Retrieve a list of panelists and their corresponding
     information"""
     try:
+        database_connection.reconnect()
         panelists = panelist.retrieve_all(database_connection)
         if not panelists:
             response = fail_dict("panelist", "No panelists found")
@@ -35,6 +36,7 @@ def get_panelist_by_id(panelist_id: int,
                        database_connection: mysql.connector.connect):
     """Retrieve a panelist based on their ID"""
     try:
+        database_connection.reconnect()
         info = panelist.retrieve_by_id(panelist_id, database_connection)
         if not info:
             message = "Panelist ID {} not found".format(panelist_id)
@@ -58,6 +60,7 @@ def get_panelist_details_by_id(panelist_id: int,
     """Retrieve a panelist with their statistics and appearances based
     on their ID"""
     try:
+        database_connection.reconnect()
         details = panelist.retrieve_details_by_id(panelist_id,
                                                   database_connection)
         if not details:
@@ -80,6 +83,7 @@ def get_panelist_scores_by_id(panelist_id: int,
                               database_connection: mysql.connector.connect):
     """Retrieve a list of scores for the requested panelist ID"""
     try:
+        database_connection.reconnect()
         scores = panelist.retrieve_scores_list_by_id(panelist_id,
                                                      database_connection)
         if not scores:
@@ -104,6 +108,7 @@ def get_panelist_scores_ordered_pair_by_id(panelist_id: int,
     """Retrieve a list of scores, as an ordered pair, for the requested
     panelist ID"""
     try:
+        database_connection.reconnect()
         scores = panelist.retrieve_scores_ordered_pair_by_id(panelist_id,
                                                              database_connection)
         if not scores:
@@ -127,6 +132,7 @@ def get_panelists_details(database_connection: mysql.connector.connect):
     """Retrieve a list of panelists with their corresponding statistics
     and appearances"""
     try:
+        database_connection.reconnect()
         details = panelist.retrieve_all_details(database_connection)
         if not details:
             response = fail_dict("panelist", "No panelists found")
@@ -147,6 +153,7 @@ def get_panelist_by_slug(panelist_slug: str,
                          database_connection: mysql.connector.connect):
     """Retrieve a panelist based on their slug"""
     try:
+        database_connection.reconnect()
         info = panelist.retrieve_by_slug(panelist_slug, database_connection)
         if not info:
             message = "Panelist slug '{}' not found".format(panelist_slug)
@@ -170,6 +177,7 @@ def get_panelist_details_by_slug(panelist_slug: str,
     """Retrieve a panelist with their statistics and appearances based
     on their slug"""
     try:
+        database_connection.reconnect()
         details = panelist.retrieve_details_by_slug(panelist_slug,
                                                     database_connection)
         if not details:
@@ -192,6 +200,7 @@ def get_panelist_scores_by_slug(panelist_slug: str,
                                 database_connection: mysql.connector.connect):
     """Retrieve a list of scores for the requested panelist slug"""
     try:
+        database_connection.reconnect()
         scores = panelist.retrieve_scores_list_by_slug(panelist_slug,
                                                        database_connection)
         if not scores:
@@ -216,6 +225,7 @@ def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str,
     """Retrieve a list of scores, as an ordered pair, for the requested
     panelist slug"""
     try:
+        database_connection.reconnect()
         scores = panelist.retrieve_scores_ordered_pair_by_slug(panelist_slug,
                                                                database_connection)
         if not scores:

@@ -15,6 +15,7 @@ def get_scorekeepers(database_connection: mysql.connector.connect):
     """Retrieve a list of scoreekeepers and their corresponding
     information"""
     try:
+        database_connection.reconnect()
         scorekeepers = scorekeeper.retrieve_all(database_connection)
         if not scorekeepers:
             response = fail_dict("scorekeeper", "No scorekeepers found")
@@ -35,6 +36,7 @@ def get_scorekeeper_by_id(scorekeeper_id: int,
                           database_connection: mysql.connector.connect):
     """Retrieve a scorekeeper based on their ID"""
     try:
+        database_connection.reconnect()
         info = scorekeeper.retrieve_by_id(scorekeeper_id, database_connection)
         if not info:
             message = "Scorekeeper ID {} not found".format(scorekeeper_id)
@@ -58,6 +60,7 @@ def get_scorekeeper_details_by_id(scorekeeper_id: int,
     """Retrieve a scorekeeper and their appearance data based on their
     ID"""
     try:
+        database_connection.reconnect()
         details = scorekeeper.retrieve_details_by_id(scorekeeper_id,
                                                      database_connection)
         if not details:
@@ -81,6 +84,7 @@ def get_scorekeeper_details(database_connection: mysql.connector.connect):
     """Retrieve a list of scorekeeper and their corresponding
     appearances"""
     try:
+        database_connection.reconnect()
         details = scorekeeper.retrieve_all_details(database_connection)
         if not details:
             response = fail_dict("scorekeeper", "No scorekeepers found")
@@ -101,6 +105,7 @@ def get_scorekeepers_by_slug(scorekeeper_slug: str,
                              database_connection: mysql.connector.connect):
     """Retrieve a scorekeeper based on their slug"""
     try:
+        database_connection.reconnect()
         info = scorekeeper.retrieve_by_slug(scorekeeper_slug,
                                             database_connection)
         if not info:
@@ -125,6 +130,7 @@ def get_scorekeeper_details_by_slug(scorekeeper_slug: str,
     """Retrieve a scorekeeper and their appearance data based on their
     slug"""
     try:
+        database_connection.reconnect()
         details = scorekeeper.retrieve_details_by_slug(scorekeeper_slug,
                                                        database_connection)
         if not details:

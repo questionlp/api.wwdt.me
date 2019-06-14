@@ -14,6 +14,7 @@ from wwdtm import location
 def get_locations(database_connection: mysql.connector.connect):
     """Retrieve a list of locations"""
     try:
+        database_connection.reconnect()
         locations = location.retrieve_all(database_connection)
         if not locations:
             response = fail_dict("location", "No locations found")
@@ -34,6 +35,7 @@ def get_location_by_id(location_id: int,
                        database_connection: mysql.connector.connect):
     """Retrieve a location and its information based on its ID"""
     try:
+        database_connection.reconnect()
         info = location.retrieve_by_id(location_id, database_connection)
         if not info:
             message = "Location ID {} not found".format(location_id)
@@ -56,6 +58,7 @@ def get_location_recordings_by_id(location_id: int,
                                   database_connection: mysql.connector.connect):
     """Retrieve show recordings for a location based on its ID"""
     try:
+        database_connection.reconnect()
         recordings = location.retrieve_recordings_by_id(location_id,
                                                         database_connection)
         if not recordings:
@@ -78,6 +81,7 @@ def get_location_recordings_by_id(location_id: int,
 def get_location_recordings(database_connection: mysql.connector.connect):
     """Retrieve show recordings for all locations"""
     try:
+        database_connection.reconnect()
         recordings = location.retrieve_all_recordings(database_connection)
         if not recordings:
             response = fail_dict("location", "No location recordings found")

@@ -14,6 +14,7 @@ from wwdtm import host
 def get_hosts(database_connection: mysql.connector.connect):
     """Retrieve a list of hosts and their corresponding information"""
     try:
+        database_connection.reconnect()
         hosts = host.retrieve_all(database_connection)
         if not hosts:
             response = fail_dict("host", "No hosts found")
@@ -33,6 +34,7 @@ def get_hosts(database_connection: mysql.connector.connect):
 def get_host_by_id(host_id: int, database_connection: mysql.connector.connect):
     """Retrieve a host based on their ID"""
     try:
+        database_connection.reconnect()
         info = host.retrieve_by_id(host_id, database_connection)
         if not info:
             message = "Host ID {} not found".format(host_id)
@@ -55,6 +57,7 @@ def get_host_details_by_id(host_id: int,
                            database_connection: mysql.connector.connect):
     """Retrieve a host and their appearance data based on their ID"""
     try:
+        database_connection.reconnect()
         details = host.retrieve_details_by_id(host_id,
                                               database_connection)
         if not details:
@@ -77,6 +80,7 @@ def get_host_details_by_id(host_id: int,
 def get_host_details(database_connection: mysql.connector.connect):
     """Retrieve a list of hosts and their corresponding appearances"""
     try:
+        database_connection.reconnect()
         details = host.retrieve_all_details(database_connection)
         if not details:
             response = fail_dict("host", "No hosts found")
@@ -97,6 +101,7 @@ def get_host_by_slug(host_slug: str,
                      database_connection: mysql.connector.connect):
     """Retrieve a host based on their slug"""
     try:
+        database_connection.reconnect()
         info = host.retrieve_by_slug(host_slug, database_connection)
         if not info:
             message = "Host slug '{}' not found".format(host_slug)
@@ -119,6 +124,7 @@ def get_host_details_by_slug(host_slug: str,
                              database_connection: mysql.connector.connect):
     """Retrieve a host and their appearance data based on their ID"""
     try:
+        database_connection.reconnect()
         details = host.retrieve_details_by_slug(host_slug,
                                                 database_connection)
         if not details:
