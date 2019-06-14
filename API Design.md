@@ -65,188 +65,188 @@ In addition to the JSON response being returned in the response body, a status c
 
 ### Guests
 
-* /guests
+* /v1.0/guests
 
   Retrieve guest ID, slug and name for all available guests
 
-* /guests/`:id`
+* /v1.0/guests/`:id`
 
   Retrieve guest ID, slug and name for the requested guest ID
 
-* /guests/`:id`/details
+* /v1.0/guests/`:id`/details
 
   Retrieve guest ID, slug, name and list of appearances for the requested guest ID
 
-* /guests/details
+* /v1.0/guests/details
 
   **(Authenticated)** Retrieve guest ID, slug, name and list of appearances for all available guests
 
-* /guests/slug/`:slug`
+* /v1.0/guests/slug/`:slug`
 
   Retrieve guest ID, slug and name for the requested guest slug
 
-* /guests/slug/`:slug`/details
+* /v1.0/guests/slug/`:slug`/details
 
   Retrieve guest ID, slug, name and list of appearances for the requested guest ID
 
 ### Hosts
 
-* /hosts
+* /v1.0/hosts
 
   Retrieve host ID, slug, name and gender for all available hosts
 
-* /hosts/`:id`
+* /v1.0/hosts/`:id`
 
   Retrieve host ID, slug, name and gender for the requested host ID
 
-* /hosts/`:id`/details
+* /v1.0/hosts/`:id`/details
 
   Retrieve host ID, slug, name, gender and list of appearances for the requested host ID
 
-* /hosts/details
+* /v1.0/hosts/details
 
   **(Authenticated)** Retrieve host ID, slug, name, gender and list of appearances for all available hosts
 
-* /hosts/slug/`:slug`
+* /v1.0/hosts/slug/`:slug`
 
   Retrieve host ID, slug, name and gender for the requested host slug
 
-* /hosts/slug/`:slug`/details
+* /v1.0/hosts/slug/`:slug`/details
 
   Retrieve host ID, slug, name, gender and list of appearances for the requested host slug
 
 ### Locations
 
-* /locations
+* /v1.0/locations
 
   Retrieve location ID, city, state and venue for all available locations
 
-* /locations/`:id`
+* /v1.0/locations/`:id`
 
   Retrieve location ID, city, state and venue for the requested location ID
 
-* /locations/`:id`/recordings
+* /v1.0/locations/`:id`/recordings
 
   Retrieve location ID, city, state, venue and list of shows recorded at that location
 
-* /locations/recordings
+* /v1.0/locations/recordings
 
   **(Authenticated)** Retrieve location ID, city, state, venue and shows recorded for all available locations
 
 ### Panelists
 
-* /panelists
+* /v1.0/panelists
 
   Retrieve panelist ID, slug, name and gender for all available panelists
 
-* /panelists/`:id`
+* /v1.0/panelists/`:id`
 
   Retrieve panelist ID, slug, name and gender for the requested panelist ID
 
-* /panelists/`:id`/details
+* /v1.0/panelists/`:id`/details
 
   Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist ID
 
-* /panelists/`:id`/scores
+* /v1.0/panelists/`:id`/scores
 
   Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
 
-* /panelists/details
+* /v1.0/panelists/details
 
   **(Authenticated)** Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
 
-* /panelists/`:id`/scores/ordered-pair
+* /v1.0/panelists/`:id`/scores/ordered-pair
 
   Retrieve panelist scores as a list of ordered pairs (show date, score) for the requested panelist ID
 
-* /panelists/slug/`:slug`
+* /v1.0/panelists/slug/`:slug`
 
   Retrieve panelist ID, slug, name and gender for the requested panelist slug
 
-* /panelists/slug/`:slug`/details
+* /v1.0/panelists/slug/`:slug`/details
 
   Retrieve panelist ID, slug, name, gender, statistics and appearances for the requested panelist slug
 
-* /panelists/slug/`:slug`/scores
+* /v1.0/panelists/slug/`:slug`/scores
 
   Retrieve panelist scores with show dates in one list and corresponding scores in another list for the requested panelist ID
 
-* /panelists/slug/`:slug`/scores/ordered-pair
+* /v1.0/panelists/slug/`:slug`/scores/ordered-pair
 
   Retrieve panelist scores as a list of ordered pairs (show date, score) for the requested panelist slug
 
 ### Scorekeepers
 
-* /scorekeepers
+* /v1.0/scorekeepers
 
   Retrieve scorekeeper ID, slug, name and gender for all available scorekeepers
 
-* /scorekeepers/`:id`
+* /v1.0/scorekeepers/`:id`
 
   Retrieve scorekeeper ID, slug, name and gender for the requested scorekeeper ID
 
-* /scorekeepers/`:id`/details
+* /v1.0/scorekeepers/`:id`/details
 
   Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper ID
 
-* /scorekeepers/all/details
+* /v1.0/scorekeepers/all/details
 
   **(Authenticated)** Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
 
-* /scorekeepers/slug/`:slug`
+* /v1.0/scorekeepers/slug/`:slug`
 
   Retrieve scorekeeper ID, slug, name and gender for the requested scorekeeper slug
 
-* /scorekeepers/slug/`:slug`/details
+* /v1.0/scorekeepers/slug/`:slug`/details
 
   Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper slug
 
 ### Shows
 
-* /shows
+* /v1.0/shows
 
   Retrieve a list of all shows along with their corresponding show IDs, show dates and repeat show/Best Of information
 
-* /shows/`:id`
+* /v1.0/shows/`:id`
 
   Retrieve show ID, date and repeat show/Best Of information for the requested show
 
-* /shows/`:id`/details
+* /v1.0/shows/`:id`/details
 
   Retrieve detailed show information, including: location, host, scorekeeper, panelists and guests for the requested show
 
-* /shows/date/`:year`
+* /v1.0/shows/date/`:year`
 
   Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from `year`
 
-* /shows/date/`:year`/details
+* /v1.0/shows/date/`:year`/details
 
   **(Authenticated)** Retrieve a list of all shows from `year` along with their corresponding show IDs, show dates and repeat show/Best Of information
 
-* /shows/date/`:year`/`:month`
+* /v1.0/shows/date/`:year`/`:month`
 
   Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from `year`/`month`
 
-* /shows/date/`:year`/`:month`/details
+* /v1.0/shows/date/`:year`/`:month`/details
 
   Retrieve a list of all shows from `year`/`month` along with their full details: location, host, scorekeeper, panelists and guests
 
-* /shows/date/`:year`/`:month`/`:day`
+* /v1.0/shows/date/`:year`/`:month`/`:day`
 
   Retrieve show ID, date and repeat show/Best Of information for the show from `year`/`month`/`day`
 
-* /shows/date/`:year`/`:month`/`:day`/details
+* /v1.0/shows/date/`:year`/`:month`/`:day`/details
 
   Retrieve show information for the show from `year`/`month`/`day` along with their full details: location, host, scorekeeper, panelists and guests
 
-* /shows/details
+* /v1.0/shows/details
 
   **(Authenticated)** Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests
 
-* /shows/recent
+* /v1.0/shows/recent
 
   Retrieve a list of recent show IDs, dates, repeat show/Best Of information for shows that fall within the past `X` days and upcoming `Y` days
 
-* /shows/recent/details
+* /v1.0/shows/recent/details
 
   Retrieve a detailed list of recent shows that fall within the past `X` days and upcoming `Y` days. The detailed information would include panelist, guest and bluff information
