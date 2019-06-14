@@ -239,6 +239,14 @@ In addition to the JSON response being returned in the response body, a status c
 
   Retrieve show information for the show from `year`/`month`/`day` along with their full details: location, host, scorekeeper, panelists and guests
 
+* /v1.0/shows/date/iso/`:year`-`:month`-`:day`
+
+  Retrieve show ID, date and repeat show/Best Of information for the show from `year`-`month`-`day`
+
+* /v1.0/shows/date/iso/`:year`-`:month`-`:day`/details
+
+  Retrieve show information for the show from `year`-`month`-`day` along with their full details: location, host, scorekeeper, panelists and guests
+
 * /v1.0/shows/details
 
   Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests
