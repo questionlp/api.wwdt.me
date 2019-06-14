@@ -2,21 +2,21 @@
 
 ## Overview
 
-This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service. Unless otherwise noted, all API calls will be available with requiring authentication.
+This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service.
 
-API calls that require authentication are done so due to the volume of data and the compute requirements to serve them at volume. This may change as request caching is implemented across the board at a later date.
-
-* [JSON Response Format](#json-response-format)
-  * [Success](#success)
-  * [Fail](#fail)
-  * [Error](#error)
-* [Endpoints](#endpoints)
-  * [Guests](#guests)
-  * [Hosts](#hosts)
-  * [Locations](#locations)
-  * [Panelists](#panelists)
-  * [Scorekeepers](#scorekeepers)
-  * [Shows](#shows)
+- [API Design](#api-design)
+  - [Overview](#overview)
+  - [JSON Response Format](#json-response-format)
+    - [Success](#success)
+    - [Fail](#fail)
+    - [Error](#error)
+  - [Endpoints](#endpoints)
+    - [Guests](#guests)
+    - [Hosts](#hosts)
+    - [Locations](#locations)
+    - [Panelists](#panelists)
+    - [Scorekeepers](#scorekeepers)
+    - [Shows](#shows)
 
 ## JSON Response Format
 
@@ -79,7 +79,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/guests/details
 
-  **(Authenticated)** Retrieve guest ID, slug, name and list of appearances for all available guests
+  Retrieve guest ID, slug, name and list of appearances for all available guests
 
 * /v1.0/guests/slug/`:slug`
 
@@ -105,7 +105,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/hosts/details
 
-  **(Authenticated)** Retrieve host ID, slug, name, gender and list of appearances for all available hosts
+  Retrieve host ID, slug, name, gender and list of appearances for all available hosts
 
 * /v1.0/hosts/slug/`:slug`
 
@@ -131,7 +131,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/locations/recordings
 
-  **(Authenticated)** Retrieve location ID, city, state, venue and shows recorded for all available locations
+  Retrieve location ID, city, state, venue and shows recorded for all available locations
 
 ### Panelists
 
@@ -153,7 +153,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/panelists/details
 
-  **(Authenticated)** Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
+  Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists
 
 * /v1.0/panelists/`:id`/scores/ordered-pair
 
@@ -191,7 +191,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/scorekeepers/all/details
 
-  **(Authenticated)** Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
+  Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers
 
 * /v1.0/scorekeepers/slug/`:slug`
 
@@ -221,7 +221,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/shows/date/`:year`/details
 
-  **(Authenticated)** Retrieve a list of all shows from `year` along with their corresponding show IDs, show dates and repeat show/Best Of information
+  Retrieve a list of all shows from `year` along with their corresponding show IDs, show dates and repeat show/Best Of information
 
 * /v1.0/shows/date/`:year`/`:month`
 
@@ -241,7 +241,7 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/shows/details
 
-  **(Authenticated)** Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests
+  Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests
 
 * /v1.0/shows/recent
 

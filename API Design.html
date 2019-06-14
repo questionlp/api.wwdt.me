@@ -23,9 +23,11 @@
     <body>
         <h1 id="api-design">API Design</h1>
 <h2 id="overview">Overview</h2>
-<p>This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service. Unless otherwise noted, all API calls will be available with requiring authentication.</p>
-<p>API calls that require authentication are done so due to the volume of data and the compute requirements to serve them at volume. This may change as request caching is implemented across the board at a later date.</p>
+<p>This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service.</p>
 <ul>
+<li><a href="#api-design">API Design</a>
+<ul>
+<li><a href="#overview">Overview</a></li>
 <li><a href="#json-response-format">JSON Response Format</a>
 <ul>
 <li><a href="#success">Success</a></li>
@@ -41,6 +43,8 @@
 <li><a href="#panelists">Panelists</a></li>
 <li><a href="#scorekeepers">Scorekeepers</a></li>
 <li><a href="#shows">Shows</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -92,7 +96,7 @@
 </li>
 <li>
 <p>/v1.0/guests/details</p>
-<p><strong>(Authenticated)</strong> Retrieve guest ID, slug, name and list of appearances for all available guests</p>
+<p>Retrieve guest ID, slug, name and list of appearances for all available guests</p>
 </li>
 <li>
 <p>/v1.0/guests/slug/<code>:slug</code></p>
@@ -119,7 +123,7 @@
 </li>
 <li>
 <p>/v1.0/hosts/details</p>
-<p><strong>(Authenticated)</strong> Retrieve host ID, slug, name, gender and list of appearances for all available hosts</p>
+<p>Retrieve host ID, slug, name, gender and list of appearances for all available hosts</p>
 </li>
 <li>
 <p>/v1.0/hosts/slug/<code>:slug</code></p>
@@ -146,7 +150,7 @@
 </li>
 <li>
 <p>/v1.0/locations/recordings</p>
-<p><strong>(Authenticated)</strong> Retrieve location ID, city, state, venue and shows recorded for all available locations</p>
+<p>Retrieve location ID, city, state, venue and shows recorded for all available locations</p>
 </li>
 </ul>
 <h3 id="panelists">Panelists</h3>
@@ -169,7 +173,7 @@
 </li>
 <li>
 <p>/v1.0/panelists/details</p>
-<p><strong>(Authenticated)</strong> Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists</p>
+<p>Retrieve panelist ID, slug, name, gender, statistics and appearances for all available panelists</p>
 </li>
 <li>
 <p>/v1.0/panelists/<code>:id</code>/scores/ordered-pair</p>
@@ -208,7 +212,7 @@
 </li>
 <li>
 <p>/v1.0/scorekeepers/all/details</p>
-<p><strong>(Authenticated)</strong> Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers</p>
+<p>Retrieve scorekeeper ID, slug, name, gender and appearances for all available scorekeepers</p>
 </li>
 <li>
 <p>/v1.0/scorekeepers/slug/<code>:slug</code></p>
@@ -239,7 +243,7 @@
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/details</p>
-<p><strong>(Authenticated)</strong> Retrieve a list of all shows from <code>year</code> along with their corresponding show IDs, show dates and repeat show/Best Of information</p>
+<p>Retrieve a list of all shows from <code>year</code> along with their corresponding show IDs, show dates and repeat show/Best Of information</p>
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/<code>:month</code></p>
@@ -259,7 +263,7 @@
 </li>
 <li>
 <p>/v1.0/shows/details</p>
-<p><strong>(Authenticated)</strong> Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests</p>
+<p>Retrieve a list of all shows with their full details, including: location, host, scorekeeper, panelists and guests</p>
 </li>
 <li>
 <p>/v1.0/shows/recent</p>
