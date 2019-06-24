@@ -18,5 +18,5 @@ text-unidecode==1.2
 typed-ast==1.4.0
 Werkzeug==0.15.4
 wrapt==1.11.1
-wwdtm==0.8.5.5
+wwdtm==0.9.0.2
 uWSGI==2.0.18
