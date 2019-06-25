@@ -280,6 +280,6 @@ All of the endpoints listed below only accept the `GET` HTTP request method. Oth
 
 ### Miscellaneous Endpoints
 
- * /v1.0/version
+* /v1.0/version
 
   Returns the version number of the libwwdtm `wwdtm` library used by the API
