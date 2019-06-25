@@ -62,7 +62,8 @@ def not_found(error):
 @app.route("/v1.0/version")
 def get_version():
     """Returns the version of the libwwdtm `wwdtm` library used by this API"""
-    return jsonify(success_dict("version", WWDTM_VERSION)), 200
+    version_info = {"wwdtm": WWDTM_VERSION}
+    return jsonify(success_dict("version", version_info)), 200
 
 #endregion
 
