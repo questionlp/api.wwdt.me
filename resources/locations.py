@@ -66,7 +66,7 @@ def get_location_recordings_by_id(location_id: int,
             response = fail_dict("location", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("recordings", recordings)), 200
+        return jsonify(success_dict("location", recordings)), 200
     except ProgrammingError:
         response = error_dict("Unable to retrieve location recording "
                               "information from the database")
@@ -84,10 +84,10 @@ def get_location_recordings(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         recordings = location.retrieve_all_recordings(database_connection)
         if not recordings:
-            response = fail_dict("recordings", "No location recordings found")
+            response = fail_dict("locations", "No locations found")
             return jsonify(response), 404
 
-        return jsonify(success_dict("recordings", recordings)), 200
+        return jsonify(success_dict("locations", recordings)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve location recording "
                               "information from the database")
