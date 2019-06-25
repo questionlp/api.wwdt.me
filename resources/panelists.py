@@ -18,12 +18,12 @@ def get_panelists(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         panelists = panelist.retrieve_all(database_connection)
         if not panelists:
-            response = fail_dict("panelist", "No panelists found")
+            response = fail_dict("panelists", "No panelists found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(panelists)), 200
+        return jsonify(success_dict("panelists", panelists)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve panelists from database")
+        repsonse = error_dict("Unable to retrieve panelists from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
@@ -43,10 +43,10 @@ def get_panelist_by_id(panelist_id: int,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("panelist", info)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist information "
-                              "from database")
+        response = error_dict("Unable to retrieve panelist information from "
+                              "the database")
         return jsonify(response), 500
     except DatabaseError:
         response = error_dict("Database error occurred while retrieving "
@@ -68,9 +68,10 @@ def get_panelist_details_by_id(panelist_id: int,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("panelist", details)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist from database")
+        response = error_dict("Unable to retrieve panelist information from "
+                              "the database")
         return jsonify(response), 500
     except DatabaseError:
         response = error_dict("Database error occurred while retrieving "
@@ -91,9 +92,9 @@ def get_panelist_scores_by_id(panelist_id: int,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(scores)), 200
+        return jsonify(success_dict("scores", scores)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist scores from "
+        response = error_dict("Unable to retrieve panelist scores from the "
                               "database")
         return jsonify(response), 500
     except DatabaseError:
@@ -116,9 +117,9 @@ def get_panelist_scores_ordered_pair_by_id(panelist_id: int,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(scores)), 200
+        return jsonify(success_dict("scores", scores)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist scores from "
+        response = error_dict("Unable to retrieve panelist scores from the "
                               "database")
         return jsonify(response), 500
     except DatabaseError:
@@ -135,12 +136,12 @@ def get_panelists_details(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         details = panelist.retrieve_all_details(database_connection)
         if not details:
-            response = fail_dict("panelist", "No panelists found")
+            response = fail_dict("panelists", "No panelists found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("panelists", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve panelists from database")
+        repsonse = error_dict("Unable to retrieve panelists from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
@@ -160,10 +161,10 @@ def get_panelist_by_slug(panelist_slug: str,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("panelist", info)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist information "
-                              "from database")
+        response = error_dict("Unable to retrieve panelist information from "
+                              "the database")
         return jsonify(response), 500
     except DatabaseError:
         response = error_dict("Database error occurred while retrieving "
@@ -185,9 +186,10 @@ def get_panelist_details_by_slug(panelist_slug: str,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("panelist", details)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist from database")
+        response = error_dict("Unable to retrieve panelist information from "
+                              "the database")
         return jsonify(response), 500
     except DatabaseError:
         response = error_dict("Database error occurred while retrieving "
@@ -208,9 +210,9 @@ def get_panelist_scores_by_slug(panelist_slug: str,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(scores)), 200
+        return jsonify(success_dict("scores", scores)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist scores from "
+        response = error_dict("Unable to retrieve panelist scores from the "
                               "database")
         return jsonify(response), 500
     except DatabaseError:
@@ -233,9 +235,9 @@ def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str,
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(scores)), 200
+        return jsonify(success_dict("scores", scores)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve panelist scores from "
+        response = error_dict("Unable to retrieve panelist scores from the "
                               "database")
         return jsonify(response), 500
     except DatabaseError:

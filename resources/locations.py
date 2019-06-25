@@ -17,16 +17,16 @@ def get_locations(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         locations = location.retrieve_all(database_connection)
         if not locations:
-            response = fail_dict("location", "No locations found")
+            response = fail_dict("locations", "No locations found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(locations)), 200
+        return jsonify(success_dict("locations", locations)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve locations from database")
+        repsonse = error_dict("Unable to retrieve locations from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
-                              "locations from database")
+                              "locations from the database")
         return jsonify(response), 500
     except:
         abort(500)
@@ -42,10 +42,10 @@ def get_location_by_id(location_id: int,
             response = fail_dict("location", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("location", info)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve location information "
-                              "from database")
+        response = error_dict("Unable to retrieve location information from "
+                              "the database")
         return jsonify(response), 500
     except DatabaseError:
         response = error_dict("Database error occurred while retrieving "
@@ -66,14 +66,14 @@ def get_location_recordings_by_id(location_id: int,
             response = fail_dict("location", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(recordings)), 200
+        return jsonify(success_dict("recordings", recordings)), 200
     except ProgrammingError:
-        response = error_dict("Unable to retrieve location information "
-                              "from database")
+        response = error_dict("Unable to retrieve location recording "
+                              "information from the database")
         return jsonify(response), 500
     except DatabaseError:
         response = error_dict("Database error occurred while retrieving "
-                              "location information")
+                              "location recording information")
         return jsonify(response), 500
     except:
         abort(500)
@@ -84,16 +84,17 @@ def get_location_recordings(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         recordings = location.retrieve_all_recordings(database_connection)
         if not recordings:
-            response = fail_dict("location", "No location recordings found")
+            response = fail_dict("recordings", "No location recordings found")
             return jsonify(response), 404
 
-        return jsonify(recordings), 200
+        return jsonify(success_dict("recordings", recordings)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve locations from database")
+        repsonse = error_dict("Unable to retrieve location recording "
+                              "information from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
-                              "locations from database")
+                              "location recording information")
         return jsonify(response), 500
     except:
         abort(500)

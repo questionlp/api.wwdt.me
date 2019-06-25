@@ -3,10 +3,10 @@
     <head>
         <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
         <title>API Design</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.0/dist/katex.min.css" integrity="sha384-9eLZqc9ds8eNjO3TmqPeYcDj8n+Qfa4nuSiGYa6DjLNcv9BtN69ZIulL9+8CqC9Y" crossorigin="anonymous">
+        
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-        <link href="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.css" rel="stylesheet" type="text/css">
+        
         <style>
 .task-list-item { list-style-type: none; } .task-list-item-checkbox { margin-left: -20px; vertical-align: middle; }
 </style>
@@ -18,40 +18,41 @@
             }
         </style>
         
-        <script src="https://cdn.jsdelivr.net/npm/katex-copytex@latest/dist/katex-copytex.min.js"></script>
+        
     </head>
     <body>
-        <h1 id="api-design">API Design</h1>
-<h2 id="overview">Overview</h2>
+        <h1 id="API-Design">API Design</h1>
+<h2 id="Overview">Overview</h2>
 <p>This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service.</p>
 <ul>
-<li><a href="#api-design">API Design</a>
+<li><a href="#API-Design">API Design</a>
 <ul>
-<li><a href="#overview">Overview</a></li>
-<li><a href="#json-response-format">JSON Response Format</a>
+<li><a href="#Overview">Overview</a></li>
+<li><a href="#JSON-Response-Format">JSON Response Format</a>
 <ul>
-<li><a href="#success">Success</a></li>
-<li><a href="#fail">Fail</a></li>
-<li><a href="#error">Error</a></li>
+<li><a href="#Success">Success</a></li>
+<li><a href="#Fail">Fail</a></li>
+<li><a href="#Error">Error</a></li>
 </ul>
 </li>
-<li><a href="#endpoints">Endpoints</a>
+<li><a href="#Endpoints">Endpoints</a>
 <ul>
-<li><a href="#guests">Guests</a></li>
-<li><a href="#hosts">Hosts</a></li>
-<li><a href="#locations">Locations</a></li>
-<li><a href="#panelists">Panelists</a></li>
-<li><a href="#scorekeepers">Scorekeepers</a></li>
-<li><a href="#shows">Shows</a></li>
+<li><a href="#Guests">Guests</a></li>
+<li><a href="#Hosts">Hosts</a></li>
+<li><a href="#Locations">Locations</a></li>
+<li><a href="#Panelists">Panelists</a></li>
+<li><a href="#Scorekeepers">Scorekeepers</a></li>
+<li><a href="#Shows">Shows</a></li>
+<li><a href="#Miscellaneous-Endpoints">Miscellaneous Endpoints</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h2 id="json-response-format">JSON Response Format</h2>
+<h2 id="JSON-Response-Format">JSON Response Format</h2>
 <p>The JSON repsonse format used to return data, failure details and error messages is based on the <a href="https://github.com/omniti-labs/jsend">JSend</a> specification for its simplicity.</p>
 <p>All responses will include a status key with either <code>success</code>, <code>fail</code> or <code>error</code> as its value. See the following sections for more information.</p>
-<h3 id="success">Success</h3>
+<h3 id="Success">Success</h3>
 <p>For successful responses, a <code>success</code> status will be returned and the response object will be returned as part of the <code>data</code> key.</p>
 <pre><code>{
     status: &quot;success&quot;,
@@ -61,7 +62,7 @@
 }
 </code></pre>
 <p>In addition to the JSON response being returned in the response body, a status code of <code>200</code> will be returned in the HTTP header(s).</p>
-<h3 id="fail">Fail</h3>
+<h3 id="Fail">Fail</h3>
 <p>For responses that fail due to issues with the user input or where a requested object cannot be located, a <code>fail</code> status will be returned with a reason included in the <code>data</code> key.</p>
 <pre><code>{
     status: &quot;fail&quot;,
@@ -71,7 +72,7 @@
 }
 </code></pre>
 <p>In addition to the JSON response being returned in the response body, a status code of <code>404</code> will be returned when a requested object cannot be located. Other fail conditions will return a <code>400</code>.</p>
-<h3 id="error">Error</h3>
+<h3 id="Error">Error</h3>
 <p>For responses that fail during the processing of the request, an <code>error</code> status will be returned and a description of the error will be returned within the <code>message</code> key.</p>
 <pre><code>{
     status: &quot;error&quot;,
@@ -79,8 +80,9 @@
 }
 </code></pre>
 <p>In addition to the JSON response being returned in the response body, a status code of <code>500</code> will be returned when an error occurs.</p>
-<h2 id="endpoints">Endpoints</h2>
-<h3 id="guests">Guests</h3>
+<h2 id="Endpoints">Endpoints</h2>
+<p>All of the endpoints listed below only accept the <code>GET</code> HTTP request method. Other methods are not implemented and will return <code>405 Method Not Allowed</code> when such requests are attempted.</p>
+<h3 id="Guests">Guests</h3>
 <ul>
 <li>
 <p>/v1.0/guests</p>
@@ -107,7 +109,7 @@
 <p>Retrieve guest ID, slug, name and list of appearances for the requested guest ID</p>
 </li>
 </ul>
-<h3 id="hosts">Hosts</h3>
+<h3 id="Hosts">Hosts</h3>
 <ul>
 <li>
 <p>/v1.0/hosts</p>
@@ -134,7 +136,7 @@
 <p>Retrieve host ID, slug, name, gender and list of appearances for the requested host slug</p>
 </li>
 </ul>
-<h3 id="locations">Locations</h3>
+<h3 id="Locations">Locations</h3>
 <ul>
 <li>
 <p>/v1.0/locations</p>
@@ -153,7 +155,7 @@
 <p>Retrieve location ID, city, state, venue and shows recorded for all available locations</p>
 </li>
 </ul>
-<h3 id="panelists">Panelists</h3>
+<h3 id="Panelists">Panelists</h3>
 <ul>
 <li>
 <p>/v1.0/panelists</p>
@@ -196,7 +198,7 @@
 <p>Retrieve panelist scores as a list of ordered pairs (show date, score) for the requested panelist slug</p>
 </li>
 </ul>
-<h3 id="scorekeepers">Scorekeepers</h3>
+<h3 id="Scorekeepers">Scorekeepers</h3>
 <ul>
 <li>
 <p>/v1.0/scorekeepers</p>
@@ -223,7 +225,7 @@
 <p>Retrieve scorekeeper ID, slug, name, gender and appearances for the requested scorekeeper slug</p>
 </li>
 </ul>
-<h3 id="shows">Shows</h3>
+<h3 id="Shows">Shows</h3>
 <ul>
 <li>
 <p>/v1.0/shows</p>
@@ -239,35 +241,43 @@
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code></p>
-<p>Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from <code>year</code></p>
+<p>Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from <code>year</code>.</p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/details</p>
 <p>Retrieve a list of all shows from <code>year</code> along with their corresponding show IDs, show dates and repeat show/Best Of information</p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/<code>:month</code></p>
 <p>Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from <code>year</code>/<code>month</code></p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/<code>:month</code>/details</p>
 <p>Retrieve a list of all shows from <code>year</code>/<code>month</code> along with their full details: location, host, scorekeeper, panelists and guests</p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/<code>:month</code>/<code>:day</code></p>
 <p>Retrieve show ID, date and repeat show/Best Of information for the show from <code>year</code>/<code>month</code>/<code>day</code></p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/<code>:year</code>/<code>:month</code>/<code>:day</code>/details</p>
 <p>Retrieve show information for the show from <code>year</code>/<code>month</code>/<code>day</code> along with their full details: location, host, scorekeeper, panelists and guests</p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/iso/<code>:year</code>-<code>:month</code>-<code>:day</code></p>
 <p>Retrieve show ID, date and repeat show/Best Of information for the show from <code>year</code>-<code>month</code>-<code>day</code></p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/date/iso/<code>:year</code>-<code>:month</code>-<code>:day</code>/details</p>
 <p>Retrieve show information for the show from <code>year</code>-<code>month</code>-<code>day</code> along with their full details: location, host, scorekeeper, panelists and guests</p>
+<p><code>year</code> needs to be provided as a four-digit year</p>
 </li>
 <li>
 <p>/v1.0/shows/details</p>
@@ -282,6 +292,11 @@
 <p>Retrieve a detailed list of recent shows that fall within the past <code>X</code> days and upcoming <code>Y</code> days. The detailed information would include panelist, guest and bluff information</p>
 </li>
 </ul>
+<h3 id="Miscellaneous-Endpoints">Miscellaneous Endpoints</h3>
+<ul>
+<li>/v1.0/version</li>
+</ul>
+<p>Returns the version number of the libwwdtm <code>wwdtm</code> library used by the API</p>
 
     </body>
     </html>

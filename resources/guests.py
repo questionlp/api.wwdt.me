@@ -17,16 +17,16 @@ def get_guests(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         guests = guest.retrieve_all(database_connection)
         if not guests:
-            response = fail_dict("guest", "No guests found")
+            response = fail_dict("guests", "No guests found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(guests)), 200
+        return jsonify(success_dict("guests", guests)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve guests from database")
+        repsonse = error_dict("Unable to retrieve guests from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
-                              "guests from database")
+                              "guests from the database")
         return jsonify(response), 500
     except:
         abort(500)
@@ -39,12 +39,12 @@ def get_guest_by_id(guest_id: int,
         info = guest.retrieve_by_id(guest_id, database_connection)
         if not info:
             message = "Guest ID {} not found".format(guest_id)
-            response = fail_dict("host", message)
+            response = fail_dict("guest", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("guest", info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve guest information from "
+        repsonse = error_dict("Unable to retrieve guest information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -65,9 +65,9 @@ def get_guest_details_by_id(guest_id: int,
             response = fail_dict("guest", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("guest", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve guest information from "
+        repsonse = error_dict("Unable to retrieve guest information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -83,12 +83,12 @@ def get_guest_details(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         details = guest.retrieve_all_details(database_connection)
         if not details:
-            response = fail_dict("guest", "No guests found")
+            response = fail_dict("guests", "No guests found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("guests", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve guests from database")
+        repsonse = error_dict("Unable to retrieve guests from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
@@ -105,12 +105,12 @@ def get_guest_by_slug(guest_slug: str,
         info = guest.retrieve_by_slug(guest_slug, database_connection)
         if not info:
             message = "Guest slug '{}' not found".format(guest_slug)
-            response = fail_dict("host", message)
+            response = fail_dict("guest", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("guest", info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve guest information from "
+        repsonse = error_dict("Unable to retrieve guest information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -129,12 +129,12 @@ def get_guest_details_by_slug(guest_slug: str,
                                                  database_connection)
         if not details:
             message = "Guest slug '{}' not found".format(guest_slug)
-            response = fail_dict("host", message)
+            response = fail_dict("guest", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("guest", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve guest information from "
+        repsonse = error_dict("Unable to retrieve guest information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:

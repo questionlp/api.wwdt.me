@@ -13,6 +13,8 @@ from flask import Flask, jsonify, abort, make_response, request
 from resources import guests, hosts, locations, panelists, scorekeepers, shows
 from resources.dicts import error_dict, fail_dict, success_dict
 
+API_VERSION = "0.9.0.3"
+
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config["JSON_SORT_KEYS"] = False
@@ -54,6 +56,14 @@ def load_config():
 @app.errorhandler(404)
 def not_found(error):
     return jsonify(fail_dict("resource", "Resource not found")), 404
+
+#endregion
+
+#region Generic Enpoints
+@app.route("/v1.0/version")
+def get_version():
+    """Returns the version of the libwwdtm `wwdtm` library used by this API"""
+    return jsonify(success_dict("version", API_VERSION)), 200
 
 #endregion
 
@@ -246,8 +256,8 @@ def get_scorekeeper_details():
            methods=["GET"])
 def get_scorekeepers_by_slug(scorekeeper_slug: str):
     """Retrieve a scorekeeper based on their slug"""
-    return scorekeepers.get_scorekeepers_by_slug(scorekeeper_slug,
-                                                 database_connection)
+    return scorekeepers.get_scorekeeper_by_slug(scorekeeper_slug,
+                                                database_connection)
 
 @app.route("/v1.0/scorekeepers/slug/<string:scorekeeper_slug>/details",
            methods=["GET"])

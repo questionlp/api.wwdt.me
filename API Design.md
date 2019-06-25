@@ -4,19 +4,20 @@
 
 This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service.
 
-- [API Design](#api-design)
-  - [Overview](#overview)
-  - [JSON Response Format](#json-response-format)
-    - [Success](#success)
-    - [Fail](#fail)
-    - [Error](#error)
-  - [Endpoints](#endpoints)
-    - [Guests](#guests)
-    - [Hosts](#hosts)
-    - [Locations](#locations)
-    - [Panelists](#panelists)
-    - [Scorekeepers](#scorekeepers)
-    - [Shows](#shows)
+- [API Design](#API-Design)
+  - [Overview](#Overview)
+  - [JSON Response Format](#JSON-Response-Format)
+    - [Success](#Success)
+    - [Fail](#Fail)
+    - [Error](#Error)
+  - [Endpoints](#Endpoints)
+    - [Guests](#Guests)
+    - [Hosts](#Hosts)
+    - [Locations](#Locations)
+    - [Panelists](#Panelists)
+    - [Scorekeepers](#Scorekeepers)
+    - [Shows](#Shows)
+    - [Miscellaneous Endpoints](#Miscellaneous-Endpoints)
 
 ## JSON Response Format
 
@@ -62,6 +63,8 @@ For responses that fail during the processing of the request, an `error` status 
 In addition to the JSON response being returned in the response body, a status code of `500` will be returned when an error occurs.
 
 ## Endpoints
+
+All of the endpoints listed below only accept the `GET` HTTP request method. Other methods are not implemented and will return `405 Method Not Allowed` when such requests are attempted.
 
 ### Guests
 
@@ -217,35 +220,51 @@ In addition to the JSON response being returned in the response body, a status c
 
 * /v1.0/shows/date/`:year`
 
-  Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from `year`
+  Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from `year`.
+  
+  `year` needs to be provided as a four-digit year
 
 * /v1.0/shows/date/`:year`/details
 
   Retrieve a list of all shows from `year` along with their corresponding show IDs, show dates and repeat show/Best Of information
+  
+  `year` needs to be provided as a four-digit year
 
 * /v1.0/shows/date/`:year`/`:month`
 
   Retrieve a list of show IDs, dates and repeat show/Best Of information for shows from `year`/`month`
+  
+  `year` needs to be provided as a four-digit year
 
 * /v1.0/shows/date/`:year`/`:month`/details
 
   Retrieve a list of all shows from `year`/`month` along with their full details: location, host, scorekeeper, panelists and guests
+  
+  `year` needs to be provided as a four-digit year
 
 * /v1.0/shows/date/`:year`/`:month`/`:day`
 
   Retrieve show ID, date and repeat show/Best Of information for the show from `year`/`month`/`day`
 
+  `year` needs to be provided as a four-digit year
+
 * /v1.0/shows/date/`:year`/`:month`/`:day`/details
 
   Retrieve show information for the show from `year`/`month`/`day` along with their full details: location, host, scorekeeper, panelists and guests
+
+  `year` needs to be provided as a four-digit year
 
 * /v1.0/shows/date/iso/`:year`-`:month`-`:day`
 
   Retrieve show ID, date and repeat show/Best Of information for the show from `year`-`month`-`day`
 
+  `year` needs to be provided as a four-digit year
+
 * /v1.0/shows/date/iso/`:year`-`:month`-`:day`/details
 
   Retrieve show information for the show from `year`-`month`-`day` along with their full details: location, host, scorekeeper, panelists and guests
+
+  `year` needs to be provided as a four-digit year
 
 * /v1.0/shows/details
 
@@ -258,3 +277,9 @@ In addition to the JSON response being returned in the response body, a status c
 * /v1.0/shows/recent/details
 
   Retrieve a detailed list of recent shows that fall within the past `X` days and upcoming `Y` days. The detailed information would include panelist, guest and bluff information
+
+### Miscellaneous Endpoints
+
+ * /v1.0/version
+
+  Returns the version number of the libwwdtm `wwdtm` library used by the API

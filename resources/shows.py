@@ -17,16 +17,16 @@ def get_shows(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         shows = show.retrieve_all(database_connection)
         if not shows:
-            response = fail_dict("show", "No shows found")
+            response = fail_dict("shows", "No shows found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(shows)), 200
+        return jsonify(success_dict("shows", shows)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve shows from database")
+        repsonse = error_dict("Unable to retrieve shows from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving shows "
-                              "from database")
+                              "from the database")
         return jsonify(response), 500
     except:
         abort(500)
@@ -42,9 +42,9 @@ def get_show_by_id(show_id: int, database_connection: mysql.connector.connect):
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("show", info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -65,9 +65,9 @@ def get_show_details_by_id(show_id: int,
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("show", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -86,16 +86,16 @@ def get_show_by_year(show_year: int,
         info = show.retrieve_by_year(show_year, database_connection)
         if not info:
             message = "Shows for year {} not found".format(show_year)
-            response = fail_dict("show", message)
+            response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("shows", info)), 200
     except ValueError:
         message = "Invalid year {}".format(show_year)
-        response = fail_dict("show", message)
+        response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -114,16 +114,16 @@ def get_show_details_by_year(show_year: int,
         details = show.retrieve_details_by_year(show_year, database_connection)
         if not details:
             message = "Shows for year {} not found".format(show_year)
-            response = fail_dict("show", message)
+            response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("shows", details)), 200
     except ValueError:
         message = "Invalid year {}".format(show_year)
-        response = fail_dict("show", message)
+        response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -145,16 +145,16 @@ def get_show_by_year_month(show_year: int,
                                            database_connection)
         if not info:
             message = "Shows for {}-{} not found".format(show_year, show_month)
-            response = fail_dict("show", message)
+            response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("shows", info)), 200
     except ValueError:
         message = "Invalid year-month {}-{}".format(show_year, show_month)
-        response = fail_dict("show", message)
+        response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -176,16 +176,16 @@ def get_show_details_by_year_month(show_year: int,
                                                       database_connection)
         if not details:
             message = "Shows for {}-{} not found".format(show_year, show_month)
-            response = fail_dict("show", message)
+            response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("shows", details)), 200
     except ValueError:
         message = "Invalid year-month {}-{}".format(show_year, show_month)
-        response = fail_dict("show", message)
+        response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -214,7 +214,7 @@ def get_show_by_date(show_year: int,
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("show", info)), 200
     except ValueError:
         message = "Invalid date {}-{}-{}".format(show_year,
                                                  show_month,
@@ -222,7 +222,7 @@ def get_show_by_date(show_year: int,
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -245,13 +245,13 @@ def get_show_by_date_string(show_date: str,
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("show", info)), 200
     except ValueError:
         message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -280,7 +280,7 @@ def get_show_details_by_date(show_year: int,
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("show", details)), 200
     except ValueError:
         message = "Invalid date {}-{}-{}".format(show_year,
                                                  show_month,
@@ -288,7 +288,7 @@ def get_show_details_by_date(show_year: int,
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -311,13 +311,13 @@ def get_show_details_by_date_string(show_date: str,
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("show", details)), 200
     except ValueError:
         message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from "
+        repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -337,9 +337,9 @@ def get_show_details(database_connection: mysql.connector.connect):
             response = fail_dict("show", "No shows found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(shows)), 200
+        return jsonify(success_dict("show", shows)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve shows from database")
+        repsonse = error_dict("Unable to retrieve shows from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving shows "
@@ -354,10 +354,10 @@ def get_recent_shows(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         info = show.retrieve_recent(database_connection)
         if not info:
-            response = fail_dict("show", "No recent shows found")
+            response = fail_dict("shows", "No recent shows found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("shows", info)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve shows from database")
         return jsonify(repsonse), 500
@@ -375,10 +375,10 @@ def get_recent_shows_details(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         details = show.retrieve_recent_details(database_connection)
         if not details:
-            response = fail_dict("show", "No recent shows found")
+            response = fail_dict("shows", "No recent shows found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("shows", details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve shows from database")
         return jsonify(repsonse), 500

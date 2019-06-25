@@ -17,16 +17,16 @@ def get_hosts(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         hosts = host.retrieve_all(database_connection)
         if not hosts:
-            response = fail_dict("host", "No hosts found")
+            response = fail_dict("hosts", "No hosts found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(hosts)), 200
+        return jsonify(success_dict("hosts", hosts)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve hosts from database")
+        repsonse = error_dict("Unable to retrieve hosts from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
-                              "hosts from database")
+                              "hosts from the database")
         return jsonify(response), 500
     except:
         abort(500)
@@ -41,9 +41,9 @@ def get_host_by_id(host_id: int, database_connection: mysql.connector.connect):
             response = fail_dict("host", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("host", info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from "
+        repsonse = error_dict("Unable to retrieve host information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -65,9 +65,9 @@ def get_host_details_by_id(host_id: int,
             response = fail_dict("host", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("host", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from "
+        repsonse = error_dict("Unable to retrieve host information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -83,12 +83,12 @@ def get_host_details(database_connection: mysql.connector.connect):
         database_connection.reconnect()
         details = host.retrieve_all_details(database_connection)
         if not details:
-            response = fail_dict("host", "No hosts found")
+            response = fail_dict("hosts", "No hosts found")
             return jsonify(response), 404
 
-        return jsonify(success_dict(details)), 200
+        return jsonify(success_dict("hosts", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve hosts from database")
+        repsonse = error_dict("Unable to retrieve hosts from the database")
         return jsonify(repsonse), 500
     except DatabaseError:
         repsonse = error_dict("Database error occurred while retrieving "
@@ -108,9 +108,9 @@ def get_host_by_slug(host_slug: str,
             response = fail_dict("host", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict(info)), 200
+        return jsonify(success_dict("host", info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from "
+        repsonse = error_dict("Unable to retrieve host information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:
@@ -132,9 +132,9 @@ def get_host_details_by_slug(host_slug: str,
             response = fail_dict("host", message)
             return jsonify(response), 404
 
-        return jsonify(details), 200
+        return jsonify(success_dict("host", details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from "
+        repsonse = error_dict("Unable to retrieve host information from the "
                               "database")
         return jsonify(repsonse), 500
     except DatabaseError:

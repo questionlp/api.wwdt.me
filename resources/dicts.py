@@ -4,18 +4,16 @@
 """This module provides functions that wrap data or messages being
 returned in a formatted dictionary"""
 
-def success_dict(data: object):
+def success_dict(key_name: str, data: object):
     """Return a success dictionary containing response data"""
-    return {"status": "success",
-            "data": data}
+    data_dict = {key_name: data}
+    return {"status": "success", "data": data_dict}
 
 def fail_dict(key_name: str, value: str):
     """Return a fail dictionary containing the failed request and
     message"""
-    return {"status": "fail",
-            "data": {key_name: value}}
+    return {"status": "fail", "data": {key_name: value}}
 
 def error_dict(error_message: str):
     """Return an error dictionary containing the error message"""
-    return {"status": "error",
-            "error": error_message}
+    return {"status": "error", "error": error_message}
