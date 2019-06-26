@@ -1,5 +1,7 @@
 # API Design
 
+View as: [HTML](api-design.html) | [Markdown](api-design.md)
+
 ## Overview
 
 This document details the high-level API routes that will need to be built out for the WWDTM Stats Page API Service.
