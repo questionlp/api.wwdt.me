@@ -1,6 +1,6 @@
 # API Design
 
-View as: [HTML](api-design.html) | [Markdown](api-design.md)
+[HTML](api-design.html) | [Markdown](api-design.md)
 
 ## Overview
 
