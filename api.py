@@ -14,6 +14,8 @@ from resources import guests, hosts, locations, panelists, scorekeepers, shows
 from resources.dicts import error_dict, fail_dict, success_dict
 from wwdtm import VERSION as WWDTM_VERSION
 
+API_VERSION = "0.1.0"
+
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 app.config["JSON_SORT_KEYS"] = False
@@ -62,7 +64,10 @@ def not_found(error):
 @app.route("/v1.0/version")
 def get_version():
     """Returns the version of the libwwdtm `wwdtm` library used by this API"""
-    version_info = {"wwdtm": WWDTM_VERSION}
+    version_info = {
+        "api": API_VERSION,
+        "wwdtm": WWDTM_VERSION
+        }
     return jsonify(success_dict("version", version_info)), 200
 
 #endregion
