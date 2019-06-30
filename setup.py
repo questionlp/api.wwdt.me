@@ -11,7 +11,7 @@ setup(name="api_wwdtm",
       long_description=("Provides API service to request show, host, "
                         "scorekeeper, panelist and guest details from an "
                         "instance of the Wait Wait... Don't Tell Me! Stats "
-                        "Page databse"),
+                        "Page database"),
       classifiers=[
           "Development Status :: 4 - Beta",
           "Intended Audience :: Developers",
