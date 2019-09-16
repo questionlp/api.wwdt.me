@@ -9,13 +9,13 @@ from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import Flask, jsonify, abort, make_response, request
 
 from .dicts import error_dict, fail_dict, success_dict
-from wwdtm import show
+from wwdtm.show import details, info, utility
 
 def get_shows(database_connection: mysql.connector.connect):
     """Return a list of shows and the corresponding information"""
     try:
         database_connection.reconnect()
-        shows = show.retrieve_all(database_connection)
+        shows = info.retrieve_all(database_connection)
         if not shows:
             response = fail_dict("shows", "No shows found")
             return jsonify(response), 404
@@ -36,13 +36,13 @@ def get_show_by_id(show_id: int, database_connection: mysql.connector.connect):
     show ID"""
     try:
         database_connection.reconnect()
-        info = show.retrieve_by_id(show_id, database_connection)
-        if not info:
+        show_info = info.retrieve_by_id(show_id, database_connection)
+        if not show_info:
             message = "Show ID {} not found".format(show_id)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("show", info)), 200
+        return jsonify(success_dict("show", show_info)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
@@ -59,13 +59,13 @@ def get_show_details_by_id(show_id: int,
     """Retrieve a show and detailed information based on the show ID"""
     try:
         database_connection.reconnect()
-        details = show.retrieve_details_by_id(show_id, database_connection)
-        if not details:
+        show_details = details.retrieve_by_id(show_id, database_connection)
+        if not show_details:
             message = "Show ID {} not found".format(show_id)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("show", details)), 200
+        return jsonify(success_dict("show", show_details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve show information from the "
                               "database")
@@ -83,13 +83,13 @@ def get_show_by_year(show_year: int,
     requested year"""
     try:
         database_connection.reconnect()
-        info = show.retrieve_by_year(show_year, database_connection)
-        if not info:
+        show_info = info.retrieve_by_year(show_year, database_connection)
+        if not show_info:
             message = "Shows for year {} not found".format(show_year)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("shows", info)), 200
+        return jsonify(success_dict("shows", show_info)), 200
     except ValueError:
         message = "Invalid year {}".format(show_year)
         response = fail_dict("shows", message)
@@ -111,13 +111,13 @@ def get_show_details_by_year(show_year: int,
     requested year"""
     try:
         database_connection.reconnect()
-        details = show.retrieve_details_by_year(show_year, database_connection)
-        if not details:
+        show_details = details.retrieve_by_year(show_year, database_connection)
+        if not show_details:
             message = "Shows for year {} not found".format(show_year)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("shows", details)), 200
+        return jsonify(success_dict("shows", show_details)), 200
     except ValueError:
         message = "Invalid year {}".format(show_year)
         response = fail_dict("shows", message)
@@ -140,15 +140,15 @@ def get_show_by_year_month(show_year: int,
     requested year and month"""
     try:
         database_connection.reconnect()
-        info = show.retrieve_by_year_month(show_year,
-                                           show_month,
-                                           database_connection)
-        if not info:
+        show_info = info.retrieve_by_year_month(show_year,
+                                                show_month,
+                                                database_connection)
+        if not show_info:
             message = "Shows for {}-{} not found".format(show_year, show_month)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("shows", info)), 200
+        return jsonify(success_dict("shows", show_info)), 200
     except ValueError:
         message = "Invalid year-month {}-{}".format(show_year, show_month)
         response = fail_dict("shows", message)
@@ -171,15 +171,15 @@ def get_show_details_by_year_month(show_year: int,
     requested year and month"""
     try:
         database_connection.reconnect()
-        details = show.retrieve_details_by_year_month(show_year,
+        show_details = details.retrieve_by_year_month(show_year,
                                                       show_month,
                                                       database_connection)
-        if not details:
+        if not show_details:
             message = "Shows for {}-{} not found".format(show_year, show_month)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("shows", details)), 200
+        return jsonify(success_dict("shows", show_details)), 200
     except ValueError:
         message = "Invalid year-month {}-{}".format(show_year, show_month)
         response = fail_dict("shows", message)
@@ -203,18 +203,18 @@ def get_show_by_date(show_year: int,
     show's year, month and day"""
     try:
         database_connection.reconnect()
-        info = show.retrieve_by_date(show_year,
-                                     show_month,
-                                     show_day,
-                                     database_connection)
-        if not info:
+        show_info = info.retrieve_by_date(show_year,
+                                          show_month,
+                                          show_day,
+                                          database_connection)
+        if not show_info:
             message = "Show date {}-{}-{} not found".format(show_year,
                                                             show_month,
                                                             show_day)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("show", info)), 200
+        return jsonify(success_dict("show", show_info)), 200
     except ValueError:
         message = "Invalid date {}-{}-{}".format(show_year,
                                                  show_month,
@@ -238,14 +238,14 @@ def get_show_by_date_string(show_date: str,
     show's year, month and day in ISO format (YYYY-MM-DD)"""
     try:
         database_connection.reconnect()
-        info = show.retrieve_by_date_string(show_date,
-                                            database_connection)
-        if not info:
+        show_info = info.retrieve_by_date_string(show_date,
+                                                 database_connection)
+        if not show_info:
             message = "Show date {} not found".format(show_date)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("show", info)), 200
+        return jsonify(success_dict("show", show_info)), 200
     except ValueError:
         message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
@@ -269,18 +269,18 @@ def get_show_details_by_date(show_year: int,
     requested year, month and day"""
     try:
         database_connection.reconnect()
-        details = show.retrieve_details_by_date(show_year,
+        show_details = details.retrieve_by_date(show_year,
                                                 show_month,
                                                 show_day,
                                                 database_connection)
-        if not details:
+        if not show_details:
             message = "Show date {}-{}-{} not found".format(show_year,
                                                             show_month,
                                                             show_day)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("show", details)), 200
+        return jsonify(success_dict("show", show_details)), 200
     except ValueError:
         message = "Invalid date {}-{}-{}".format(show_year,
                                                  show_month,
@@ -304,14 +304,14 @@ def get_show_details_by_date_string(show_date: str,
     show's year, month and day in ISO format (YYYY-MM-DD)"""
     try:
         database_connection.reconnect()
-        details = show.retrieve_details_by_date_string(show_date,
+        show_details = details.retrieve_by_date_string(show_date,
                                                        database_connection)
-        if not details:
+        if not show_details:
             message = "Show date {} not found".format(show_date)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("show", details)), 200
+        return jsonify(success_dict("show", show_details)), 200
     except ValueError:
         message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
@@ -332,7 +332,7 @@ def get_show_details(database_connection: mysql.connector.connect):
     information"""
     try:
         database_connection.reconnect()
-        shows = show.retrieve_all_details(database_connection)
+        shows = details.retrieve_all(database_connection)
         if not shows:
             response = fail_dict("show", "No shows found")
             return jsonify(response), 404
@@ -352,12 +352,12 @@ def get_recent_shows(database_connection: mysql.connector.connect):
     """Retrieve a list of recent shows and corresponding information"""
     try:
         database_connection.reconnect()
-        info = show.retrieve_recent(database_connection)
-        if not info:
+        show_info = info.retrieve_recent(database_connection)
+        if not show_info:
             response = fail_dict("shows", "No recent shows found")
             return jsonify(response), 404
 
-        return jsonify(success_dict("shows", info)), 200
+        return jsonify(success_dict("shows", show_info)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve shows from database")
         return jsonify(repsonse), 500
@@ -373,12 +373,12 @@ def get_recent_shows_details(database_connection: mysql.connector.connect):
     information"""
     try:
         database_connection.reconnect()
-        details = show.retrieve_recent_details(database_connection)
-        if not details:
+        show_details = details.retrieve_recent(database_connection)
+        if not show_details:
             response = fail_dict("shows", "No recent shows found")
             return jsonify(response), 404
 
-        return jsonify(success_dict("shows", details)), 200
+        return jsonify(success_dict("shows", show_details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve shows from database")
         return jsonify(repsonse), 500
