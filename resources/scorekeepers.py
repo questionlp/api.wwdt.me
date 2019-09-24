@@ -9,14 +9,14 @@ from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import Flask, jsonify, abort, make_response, request
 
 from .dicts import error_dict, fail_dict, success_dict
-from wwdtm import scorekeeper
+from wwdtm.scorekeeper import details, info
 
 def get_scorekeepers(database_connection: mysql.connector.connect):
     """Retrieve a list of scoreekeepers and their corresponding
     information"""
     try:
         database_connection.reconnect()
-        scorekeepers = scorekeeper.retrieve_all(database_connection)
+        scorekeepers = info.retrieve_all(database_connection)
         if not scorekeepers:
             response = fail_dict("scorekeepers", "No scorekeepers found")
             return jsonify(response), 404
@@ -38,13 +38,13 @@ def get_scorekeeper_by_id(scorekeeper_id: int,
     """Retrieve a scorekeeper based on their ID"""
     try:
         database_connection.reconnect()
-        info = scorekeeper.retrieve_by_id(scorekeeper_id, database_connection)
-        if not info:
+        scorekeeper_info = info.retrieve_by_id(scorekeeper_id, database_connection)
+        if not scorekeeper_info:
             message = "Scorekeeper ID {} not found".format(scorekeeper_id)
             response = fail_dict("scorekeeper", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("scorekeeper", info)), 200
+        return jsonify(success_dict("scorekeeper", scorekeeper_info)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
@@ -62,14 +62,14 @@ def get_scorekeeper_details_by_id(scorekeeper_id: int,
     ID"""
     try:
         database_connection.reconnect()
-        details = scorekeeper.retrieve_details_by_id(scorekeeper_id,
+        scorekeeper_details = details.retrieve_by_id(scorekeeper_id,
                                                      database_connection)
-        if not details:
+        if not scorekeeper_details:
             message = "Scorekeeper ID {} not found".format(scorekeeper_id)
             response = fail_dict("scorekeeper", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("scorekeeper", details)), 200
+        return jsonify(success_dict("scorekeeper", scorekeeper_details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
@@ -86,12 +86,12 @@ def get_scorekeeper_details(database_connection: mysql.connector.connect):
     appearances"""
     try:
         database_connection.reconnect()
-        details = scorekeeper.retrieve_all_details(database_connection)
+        scorekeeper_details = details.retrieve_all(database_connection)
         if not details:
             response = fail_dict("scorekeepers", "No scorekeepers found")
             return jsonify(response), 404
 
-        return jsonify(success_dict("scorekeepers", details)), 200
+        return jsonify(success_dict("scorekeepers", scorekeeper_details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve scorekeepers from the "
                               "database")
@@ -108,14 +108,14 @@ def get_scorekeeper_by_slug(scorekeeper_slug: str,
     """Retrieve a scorekeeper based on their slug"""
     try:
         database_connection.reconnect()
-        info = scorekeeper.retrieve_by_slug(scorekeeper_slug,
-                                            database_connection)
-        if not info:
+        scorekeeper_info = info.retrieve_by_slug(scorekeeper_slug,
+                                                 database_connection)
+        if not scorekeeper_info:
             message = "Scorekeeper slug '{}' not found".format(scorekeeper_slug)
             response = fail_dict("scorekeeper", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("scorekeeper", info)), 200
+        return jsonify(success_dict("scorekeeper", scorekeeper_info)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
@@ -133,14 +133,14 @@ def get_scorekeeper_details_by_slug(scorekeeper_slug: str,
     slug"""
     try:
         database_connection.reconnect()
-        details = scorekeeper.retrieve_details_by_slug(scorekeeper_slug,
+        scorekeeper_details = details.retrieve_by_slug(scorekeeper_slug,
                                                        database_connection)
-        if not details:
+        if not scorekeeper_details:
             message = "Scorekeeper slug '{}' not found".format(scorekeeper_slug)
             response = fail_dict("scorekeeper", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("scorekeeper", details)), 200
+        return jsonify(success_dict("scorekeeper", scorekeeper_details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
