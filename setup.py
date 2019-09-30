@@ -6,7 +6,7 @@
 from setuptools import setup
 
 setup(name="api_wwdtm",
-      version="0.9.1",
+      version="0.2.5",
       description="Wait Wait... Don't Tell Me! API Service",
       long_description=("Provides API service to request show, host, "
                         "scorekeeper, panelist and guest details from an "

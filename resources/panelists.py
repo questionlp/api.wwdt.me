@@ -9,14 +9,14 @@ from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import Flask, jsonify, abort, make_response, request
 
 from .dicts import error_dict, fail_dict, success_dict
-from wwdtm import panelist
+from wwdtm.panelist import details, info
 
 def get_panelists(database_connection: mysql.connector.connect):
     """Retrieve a list of panelists and their corresponding
     information"""
     try:
         database_connection.reconnect()
-        panelists = panelist.retrieve_all(database_connection)
+        panelists = info.retrieve_all(database_connection)
         if not panelists:
             response = fail_dict("panelists", "No panelists found")
             return jsonify(response), 404
@@ -37,13 +37,13 @@ def get_panelist_by_id(panelist_id: int,
     """Retrieve a panelist based on their ID"""
     try:
         database_connection.reconnect()
-        info = panelist.retrieve_by_id(panelist_id, database_connection)
-        if not info:
+        panelist_info = info.retrieve_by_id(panelist_id, database_connection)
+        if not panelist_info:
             message = "Panelist ID {} not found".format(panelist_id)
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("panelist", info)), 200
+        return jsonify(success_dict("panelist", panelist_info)), 200
     except ProgrammingError:
         response = error_dict("Unable to retrieve panelist information from "
                               "the database")
@@ -61,14 +61,14 @@ def get_panelist_details_by_id(panelist_id: int,
     on their ID"""
     try:
         database_connection.reconnect()
-        details = panelist.retrieve_details_by_id(panelist_id,
+        panelist_details = details.retrieve_by_id(panelist_id,
                                                   database_connection)
-        if not details:
+        if not panelist_details:
             message = "Panelist ID {} not found".format(panelist_id)
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("panelist", details)), 200
+        return jsonify(success_dict("panelist", panelist_details)), 200
     except ProgrammingError:
         response = error_dict("Unable to retrieve panelist information from "
                               "the database")
@@ -85,8 +85,8 @@ def get_panelist_scores_by_id(panelist_id: int,
     """Retrieve a list of scores for the requested panelist ID"""
     try:
         database_connection.reconnect()
-        scores = panelist.retrieve_scores_list_by_id(panelist_id,
-                                                     database_connection)
+        scores = info.retrieve_scores_list_by_id(panelist_id,
+                                                 database_connection)
         if not scores:
             message = "Panelist ID {} not found".format(panelist_id)
             response = fail_dict("panelist", message)
@@ -110,8 +110,8 @@ def get_panelist_scores_ordered_pair_by_id(panelist_id: int,
     panelist ID"""
     try:
         database_connection.reconnect()
-        scores = panelist.retrieve_scores_ordered_pair_by_id(panelist_id,
-                                                             database_connection)
+        scores = info.retrieve_scores_ordered_pair_by_id(panelist_id,
+                                                         database_connection)
         if not scores:
             message = "Panelist ID {} not found".format(panelist_id)
             response = fail_dict("panelist", message)
@@ -134,12 +134,12 @@ def get_panelists_details(database_connection: mysql.connector.connect):
     and appearances"""
     try:
         database_connection.reconnect()
-        details = panelist.retrieve_all_details(database_connection)
-        if not details:
+        panelist_details = details.retrieve_all(database_connection)
+        if not panelist_details:
             response = fail_dict("panelists", "No panelists found")
             return jsonify(response), 404
 
-        return jsonify(success_dict("panelists", details)), 200
+        return jsonify(success_dict("panelists", panelist_details)), 200
     except ProgrammingError:
         repsonse = error_dict("Unable to retrieve panelists from the database")
         return jsonify(repsonse), 500
@@ -155,13 +155,14 @@ def get_panelist_by_slug(panelist_slug: str,
     """Retrieve a panelist based on their slug"""
     try:
         database_connection.reconnect()
-        info = panelist.retrieve_by_slug(panelist_slug, database_connection)
-        if not info:
+        panelist_info = info.retrieve_by_slug(panelist_slug,
+                                              database_connection)
+        if not panelist_info:
             message = "Panelist slug '{}' not found".format(panelist_slug)
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("panelist", info)), 200
+        return jsonify(success_dict("panelist", panelist_info)), 200
     except ProgrammingError:
         response = error_dict("Unable to retrieve panelist information from "
                               "the database")
@@ -179,14 +180,14 @@ def get_panelist_details_by_slug(panelist_slug: str,
     on their slug"""
     try:
         database_connection.reconnect()
-        details = panelist.retrieve_details_by_slug(panelist_slug,
+        panelist_details = details.retrieve_by_slug(panelist_slug,
                                                     database_connection)
-        if not details:
+        if not panelist_details:
             message = "Panelist slug '{}' not found".format(panelist_slug)
             response = fail_dict("panelist", message)
             return jsonify(response), 404
 
-        return jsonify(success_dict("panelist", details)), 200
+        return jsonify(success_dict("panelist", panelist_details)), 200
     except ProgrammingError:
         response = error_dict("Unable to retrieve panelist information from "
                               "the database")
@@ -203,8 +204,8 @@ def get_panelist_scores_by_slug(panelist_slug: str,
     """Retrieve a list of scores for the requested panelist slug"""
     try:
         database_connection.reconnect()
-        scores = panelist.retrieve_scores_list_by_slug(panelist_slug,
-                                                       database_connection)
+        scores = info.retrieve_scores_list_by_slug(panelist_slug,
+                                                   database_connection)
         if not scores:
             message = "Panelist slug '{}' not found".format(panelist_slug)
             response = fail_dict("panelist", message)
@@ -228,8 +229,8 @@ def get_panelist_scores_ordered_pair_by_slug(panelist_slug: str,
     panelist slug"""
     try:
         database_connection.reconnect()
-        scores = panelist.retrieve_scores_ordered_pair_by_slug(panelist_slug,
-                                                               database_connection)
+        scores = info.retrieve_scores_ordered_pair_by_slug(panelist_slug,
+                                                           database_connection)
         if not scores:
             message = "Panelist slug '{}' not found".format(panelist_slug)
             response = fail_dict("panelist", message)

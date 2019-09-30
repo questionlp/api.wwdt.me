@@ -9,7 +9,7 @@ from mysql.connector.errors import DatabaseError, ProgrammingError
 from flask import Flask, jsonify, abort, make_response, request
 
 from .dicts import error_dict, fail_dict, success_dict
-from wwdtm.show import details, info, utility
+from wwdtm.show import details, info
 
 def get_shows(database_connection: mysql.connector.connect):
     """Return a list of shows and the corresponding information"""
