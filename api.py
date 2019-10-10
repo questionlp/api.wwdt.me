@@ -14,7 +14,7 @@ from resources import guests, hosts, locations, panelists, scorekeepers, shows
 from resources.dicts import error_dict, fail_dict, success_dict
 from wwdtm import VERSION as WWDTM_VERSION
 
-API_VERSION = "0.2.6"
+API_VERSION = "0.3.0"
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
