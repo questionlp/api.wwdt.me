@@ -85,13 +85,13 @@ def get_show_by_year(show_year: int,
         database_connection.reconnect()
         show_info = info.retrieve_by_year(show_year, database_connection)
         if not show_info:
-            message = "Shows for year {} not found".format(show_year)
+            message = "Shows for year {:04d} not found".format(show_year)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_info)), 200
     except ValueError:
-        message = "Invalid year {}".format(show_year)
+        message = "Invalid year {:04d}".format(show_year)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
@@ -113,13 +113,13 @@ def get_show_details_by_year(show_year: int,
         database_connection.reconnect()
         show_details = details.retrieve_by_year(show_year, database_connection)
         if not show_details:
-            message = "Shows for year {} not found".format(show_year)
+            message = "Shows for year {:04d} not found".format(show_year)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_details)), 200
     except ValueError:
-        message = "Invalid year {}".format(show_year)
+        message = "Invalid year {:04d}".format(show_year)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
@@ -144,13 +144,13 @@ def get_show_by_year_month(show_year: int,
                                                 show_month,
                                                 database_connection)
         if not show_info:
-            message = "Shows for {}-{} not found".format(show_year, show_month)
+            message = "Shows for {:04d}-{:02d} not found".format(show_year, show_month)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_info)), 200
     except ValueError:
-        message = "Invalid year-month {}-{}".format(show_year, show_month)
+        message = "Invalid year-month {:04d}-{:02d}".format(show_year, show_month)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
@@ -175,13 +175,13 @@ def get_show_details_by_year_month(show_year: int,
                                                       show_month,
                                                       database_connection)
         if not show_details:
-            message = "Shows for {}-{} not found".format(show_year, show_month)
+            message = "Shows for {:04d}-{:02d} not found".format(show_year, show_month)
             response = fail_dict("shows", message)
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_details)), 200
     except ValueError:
-        message = "Invalid year-month {}-{}".format(show_year, show_month)
+        message = "Invalid year-month {:04d}-{:02d}".format(show_year, show_month)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
@@ -208,17 +208,17 @@ def get_show_by_date(show_year: int,
                                           show_day,
                                           database_connection)
         if not show_info:
-            message = "Show date {}-{}-{} not found".format(show_year,
-                                                            show_month,
-                                                            show_day)
+            message = "Show date {:04d}-{:02d}-{:02d} not found".format(show_year,
+                                                                     show_month,
+                                                                     show_day)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
         return jsonify(success_dict("show", show_info)), 200
     except ValueError:
-        message = "Invalid date {}-{}-{}".format(show_year,
-                                                 show_month,
-                                                 show_day)
+        message = "Invalid date {:04d}-{:02d}-{:02d}".format(show_year,
+                                                          show_month,
+                                                          show_day)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
@@ -274,17 +274,17 @@ def get_show_details_by_date(show_year: int,
                                                 show_day,
                                                 database_connection)
         if not show_details:
-            message = "Show date {}-{}-{} not found".format(show_year,
-                                                            show_month,
-                                                            show_day)
+            message = "Show date {:04d}-{:02d}-{:02d} not found".format(show_year,
+                                                                     show_month,
+                                                                     show_day)
             response = fail_dict("show", message)
             return jsonify(response), 404
 
         return jsonify(success_dict("show", show_details)), 200
     except ValueError:
-        message = "Invalid date {}-{}-{}".format(show_year,
-                                                 show_month,
-                                                 show_day)
+        message = "Invalid date {:04d}-{:02d}-{:02d}".format(show_year,
+                                                          show_month,
+                                                          show_day)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
