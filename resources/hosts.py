@@ -22,10 +22,10 @@ def get_hosts(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("hosts", hosts)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve hosts from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve hosts from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "hosts from the database")
         return jsonify(response), 500
     except:
@@ -43,11 +43,11 @@ def get_host_by_id(host_id: int, database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("host", host_info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from the "
+        response = error_dict("Unable to retrieve host information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "host information")
         return jsonify(response), 500
     except:
@@ -67,11 +67,11 @@ def get_host_details_by_id(host_id: int,
 
         return jsonify(success_dict("host", host_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from the "
+        response = error_dict("Unable to retrieve host information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "host information")
         return jsonify(response), 500
     except:
@@ -88,10 +88,10 @@ def get_host_details(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("hosts", host_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve hosts from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve hosts from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "host information")
         return jsonify(response), 500
     except:
@@ -110,11 +110,11 @@ def get_host_by_slug(host_slug: str,
 
         return jsonify(success_dict("host", host_info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from the "
+        response = error_dict("Unable to retrieve host information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "host information")
         return jsonify(response), 500
     except:
@@ -134,11 +134,11 @@ def get_host_details_by_slug(host_slug: str,
 
         return jsonify(success_dict("host", host_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve host information from the "
+        response = error_dict("Unable to retrieve host information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "host information")
         return jsonify(response), 500
     except:

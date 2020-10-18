@@ -22,10 +22,10 @@ def get_locations(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("locations", locations)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve locations from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve locations from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "locations from the database")
         return jsonify(response), 500
     except:
@@ -89,11 +89,11 @@ def get_location_recordings(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("locations", recordings)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve location recording "
+        response = error_dict("Unable to retrieve location recording "
                               "information from the database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "location recording information")
         return jsonify(response), 500
     except:
