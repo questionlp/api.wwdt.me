@@ -23,10 +23,10 @@ def get_panelists(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("panelists", panelists)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve panelists from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve panelists from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "panelists from database")
         return jsonify(response), 500
     except:
@@ -141,10 +141,10 @@ def get_panelists_details(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("panelists", panelist_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve panelists from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve panelists from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "panelists from database")
         return jsonify(response), 500
     except:

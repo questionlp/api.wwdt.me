@@ -22,10 +22,10 @@ def get_shows(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("shows", shows)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve shows from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve shows from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving shows "
+        response = error_dict("Database error occurred while retrieving shows "
                               "from the database")
         return jsonify(response), 500
     except:
@@ -44,11 +44,11 @@ def get_show_by_id(show_id: int, database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("show", show_info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -67,11 +67,11 @@ def get_show_details_by_id(show_id: int,
 
         return jsonify(success_dict("show", show_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -90,16 +90,16 @@ def get_show_by_year(show_year: int,
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_info)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid year {:04d}".format(show_year)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -118,16 +118,16 @@ def get_show_details_by_year(show_year: int,
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_details)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid year {:04d}".format(show_year)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -149,16 +149,16 @@ def get_show_by_year_month(show_year: int,
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_info)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid year-month {:04d}-{:02d}".format(show_year, show_month)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -180,16 +180,16 @@ def get_show_details_by_year_month(show_year: int,
             return jsonify(response), 404
 
         return jsonify(success_dict("shows", show_details)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid year-month {:04d}-{:02d}".format(show_year, show_month)
         response = fail_dict("shows", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -215,18 +215,18 @@ def get_show_by_date(show_year: int,
             return jsonify(response), 404
 
         return jsonify(success_dict("show", show_info)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid date {:04d}-{:02d}-{:02d}".format(show_year,
                                                           show_month,
                                                           show_day)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -246,16 +246,16 @@ def get_show_by_date_string(show_date: str,
             return jsonify(response), 404
 
         return jsonify(success_dict("show", show_info)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -281,18 +281,18 @@ def get_show_details_by_date(show_year: int,
             return jsonify(response), 404
 
         return jsonify(success_dict("show", show_details)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid date {:04d}-{:02d}-{:02d}".format(show_year,
                                                           show_month,
                                                           show_day)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -312,16 +312,16 @@ def get_show_details_by_date_string(show_date: str,
             return jsonify(response), 404
 
         return jsonify(success_dict("show", show_details)), 200
-    except ValueError:
+    except (OverflowError, ValueError):
         message = "Invalid date {}".format(show_date)
         response = fail_dict("show", message)
         return jsonify(response), 400
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve show information from the "
+        response = error_dict("Unable to retrieve show information from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "show information")
         return jsonify(response), 500
     except:
@@ -339,10 +339,10 @@ def get_show_details(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("show", shows)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve shows from the database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve shows from the database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving shows "
+        response = error_dict("Database error occurred while retrieving shows "
                               "from database")
         return jsonify(response), 500
     except:
@@ -359,10 +359,10 @@ def get_recent_shows(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("shows", show_info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve shows from database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve shows from database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving shows "
+        response = error_dict("Database error occurred while retrieving shows "
                               "from database")
         return jsonify(response), 500
     except:
@@ -380,10 +380,10 @@ def get_recent_shows_details(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("shows", show_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve shows from database")
-        return jsonify(repsonse), 500
+        response = error_dict("Unable to retrieve shows from database")
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving shows "
+        response = error_dict("Database error occurred while retrieving shows "
                               "from database")
         return jsonify(response), 500
     except:
