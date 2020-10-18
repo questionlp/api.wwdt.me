@@ -23,11 +23,11 @@ def get_scorekeepers(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("scorekeepers", scorekeepers)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve scorekeepers from the "
+        response = error_dict("Unable to retrieve scorekeepers from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "scorekeepers from the database")
         return jsonify(response), 500
     except:
@@ -46,11 +46,11 @@ def get_scorekeeper_by_id(scorekeeper_id: int,
 
         return jsonify(success_dict("scorekeeper", scorekeeper_info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve scorekeeper information "
+        response = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "scorekeeper information")
         return jsonify(response), 500
     except:
@@ -71,11 +71,11 @@ def get_scorekeeper_details_by_id(scorekeeper_id: int,
 
         return jsonify(success_dict("scorekeeper", scorekeeper_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve scorekeeper information "
+        response = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "scorekeeper information")
         return jsonify(response), 500
     except:
@@ -93,11 +93,11 @@ def get_scorekeeper_details(database_connection: mysql.connector.connect):
 
         return jsonify(success_dict("scorekeepers", scorekeeper_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve scorekeepers from the "
+        response = error_dict("Unable to retrieve scorekeepers from the "
                               "database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "scorekeepers from database")
         return jsonify(response), 500
     except:
@@ -117,11 +117,11 @@ def get_scorekeeper_by_slug(scorekeeper_slug: str,
 
         return jsonify(success_dict("scorekeeper", scorekeeper_info)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve scorekeeper information "
+        response = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "scorekeeper information")
         return jsonify(response), 500
     except:
@@ -142,11 +142,11 @@ def get_scorekeeper_details_by_slug(scorekeeper_slug: str,
 
         return jsonify(success_dict("scorekeeper", scorekeeper_details)), 200
     except ProgrammingError:
-        repsonse = error_dict("Unable to retrieve scorekeeper information "
+        response = error_dict("Unable to retrieve scorekeeper information "
                               "from the database")
-        return jsonify(repsonse), 500
+        return jsonify(response), 500
     except DatabaseError:
-        repsonse = error_dict("Database error occurred while retrieving "
+        response = error_dict("Database error occurred while retrieving "
                               "scorekeeper information")
         return jsonify(response), 500
     except:
