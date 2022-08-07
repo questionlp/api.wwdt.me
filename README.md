@@ -1,5 +1,14 @@
 # Wait Wait Don't Tell Me! Stats API
 
+## Note
+
+This version of the Wait Wait Stats API is being deprecated and the API will
+be shutdown on January 31, 2023. At that time, this repository will be marked
+as archived and read-only.
+
+All development efforts has been directed to Stats API Version 2. The repository
+for Stats API Version 2 is available at [api.wwdt.me_v2](https://github.com/questionlp/api.wwdt.me_v2).
+
 ## Overview
 
 API service written in Python and using Flask to provide endpoints to query
